@@ -2,6 +2,6 @@
 title: "ISSS608-VAA"
 ---
 
-WELCOME TO ISSS608 VISUAL ANALYTICS AND APPLICATIONS.
+WELCOME TO **ISSS608 VISUAL ANALYTICS AND APPLICATIONS**.
 
 In this website, you will find my coursework prepared for this course.
