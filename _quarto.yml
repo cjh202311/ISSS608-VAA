@@ -5,18 +5,38 @@ website:
   title: "ISSS608-VAA"
   navbar:
     left: 
-      - text: "Hands-on Exercise"
+      - href: index.qmd
+        text: 🏠 Home
+      - text: "🙋‍♂️ Hands-on Exercise"
         menu: 
           - text: "Hands-on Exercise 1"
             href: "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html"
+          - text: "Hands-on Exercise 2"
+            
+          - text: "Hands-on Exercise 3"
+            
+          - text: "Hands-on Exercise 4"
+            
+          - text: "Hands-on Exercise 5"
+            
+      - text: "🧑‍🏫️ In-class Exercise"
+        menu: 
+          - text: " In-class Exercise 1"
+            
+      - text: "✍️️ Take-home Exercise"
+        menu: 
+          - text: "  Take-home Exercise 1"
     right:
-      - href: index.qmd
-        text: Home
-      - about.qmd
-
-format:
+      
+      - icon: github
+        href: https://github.com/cjh202311
+        aria-label: Github
+      - text: 📊
+        href: https://public.tableau.com/
+        aria-label: Tableau
+format:     
   html:
-    theme: cosmo
+    theme: Vapor
     css: styles.css
     toc: true
 
