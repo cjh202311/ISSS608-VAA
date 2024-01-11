@@ -159,9 +159,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </i> 
  <span class="menu-text"></span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://public.tableau.com/" rel="" target="">
- <span class="menu-text">📊</span></a>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://public.tableau.com/" rel="" target=""><i class="bi bi-bar-chart-fill" role="img" aria-label="Tableau">
+</i> 
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
             <div class="quarto-navbar-tools">
@@ -261,7 +262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 9, 2024</p>
+      <p class="date-modified">January 11, 2024</p>
     </div>
   </div>
     
@@ -306,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="introducing-ggplot" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="introducing-ggplot"><span class="header-section-number">2</span> <strong>Introducing ggplot</strong></h2>
-<p><img src="https://r4va.netlify.app/chap01/img/image1.jpg" width="60" height="60"> is an R package for <strong>declaratively</strong> creating <strong>data-driven</strong> graphics based on <strong><em>The Grammar of Graphics</em></strong></p>
+<p>ggplot2 is an R package for <strong>declaratively</strong> creating <strong>data-driven</strong> graphics based on <strong><em>The Grammar of Graphics</em></strong></p>
 <p><img src="https://r4va.netlify.app/chap01/img/image5.png" class="img-fluid"></p>
 <p>It is also part of the tidyverse family specially designed for visual exploration and communication.</p>
 <p><img src="https://r4va.netlify.app/chap01/img/image2.png" class="img-fluid"></p>
@@ -1319,7 +1320,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co">    warning: false</span></span>
 <span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Getting Started </span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Getting Started</span></span>
 <span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### Install and launching R packages</span></span>
 <span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a></span>
@@ -1349,7 +1350,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb33-46"><a href="#cb33-46" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-47"><a href="#cb33-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## **Introducing ggplot**</span></span>
 <span id="cb33-48"><a href="#cb33-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-49"><a href="#cb33-49" aria-hidden="true" tabindex="-1"></a><span class="al">![](https://r4va.netlify.app/chap01/img/image1.jpg)</span>{width="60" height="60"} is an R package for **declaratively** creating **data-driven** graphics based on ***The Grammar of Graphics***</span>
+<span id="cb33-49"><a href="#cb33-49" aria-hidden="true" tabindex="-1"></a>ggplot2 is an R package for **declaratively** creating **data-driven** graphics based on ***The Grammar of Graphics***</span>
 <span id="cb33-50"><a href="#cb33-50" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-51"><a href="#cb33-51" aria-hidden="true" tabindex="-1"></a><span class="al">![](https://r4va.netlify.app/chap01/img/image5.png)</span></span>
 <span id="cb33-52"><a href="#cb33-52" aria-hidden="true" tabindex="-1"></a></span>
@@ -1837,7 +1838,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb33-588"><a href="#cb33-588" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-589"><a href="#cb33-589" aria-hidden="true" tabindex="-1"></a>A list of theme can be found at this <span class="co">[</span><span class="ot">link</span><span class="co">](https://ggplot2.tidyverse.org/reference/ggtheme.html)</span>. Each theme element can be conceived of as either a line (e.g.&nbsp;x-axis), a rectangle (e.g.&nbsp;graph background), or text (e.g.&nbsp;axis title).</span>
 <span id="cb33-590"><a href="#cb33-590" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-591"><a href="#cb33-591" aria-hidden="true" tabindex="-1"></a><span class="fu">###  **Working with theme**</span></span>
+<span id="cb33-591"><a href="#cb33-591" aria-hidden="true" tabindex="-1"></a><span class="fu">### **Working with theme**</span></span>
 <span id="cb33-592"><a href="#cb33-592" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-593"><a href="#cb33-593" aria-hidden="true" tabindex="-1"></a>The code chunk below plot a horizontal bar chart using .<span class="in">`theme_gray()`</span></span>
 <span id="cb33-594"><a href="#cb33-594" aria-hidden="true" tabindex="-1"></a></span>

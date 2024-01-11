@@ -12,7 +12,7 @@ format:
     warning: false
 ---
 
-## Getting Started 
+## Getting Started
 
 ### Install and launching R packages
 
@@ -42,7 +42,7 @@ exam_data <- read_csv("data/Exam_data.csv")
 
 ## **Introducing ggplot**
 
-![](https://r4va.netlify.app/chap01/img/image1.jpg){width="60" height="60"} is an R package for **declaratively** creating **data-driven** graphics based on ***The Grammar of Graphics***
+ggplot2 is an R package for **declaratively** creating **data-driven** graphics based on ***The Grammar of Graphics***
 
 ![](https://r4va.netlify.app/chap01/img/image5.png)
 
@@ -530,7 +530,7 @@ Built-in themes include: - (default) - `theme_gray()theme_bw()` - `theme_classic
 
 A list of theme can be found at this [link](https://ggplot2.tidyverse.org/reference/ggtheme.html). Each theme element can be conceived of as either a line (e.g. x-axis), a rectangle (e.g. graph background), or text (e.g. axis title).
 
-###  **Working with theme**
+### **Working with theme**
 
 The code chunk below plot a horizontal bar chart using .`theme_gray()`
 

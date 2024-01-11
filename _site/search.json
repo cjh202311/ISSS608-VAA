@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "ISSS608-VAA",
+    "title": "ISSS608 Visual Analytics and Applications",
     "section": "",
-    "text": "WELCOME TO ISSS608 VISUAL ANALYTICS AND APPLICATIONS.\nIn this website, you will find my coursework prepared for this course."
+    "text": "In this website, you will find my coursework prepared for this course.\n\n\n\n\n\n\nThe most recent submission\n\n\n\n\n\n\n\n\n\n\n\n\n\nHands-on Exercise 1: A Layered Grammar of Graphics: ggplot2 methods\n\n\n15 min\n\n\n\nCai Jingheng\n\n\nJan 9, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -39,7 +39,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#introducing-ggplot",
     "title": "Hands-on Exercise 1: A Layered Grammar of Graphics: ggplot2 methods",
     "section": "2 Introducing ggplot",
-    "text": "2 Introducing ggplot\n is an R package for declaratively creating data-driven graphics based on The Grammar of Graphics\n\nIt is also part of the tidyverse family specially designed for visual exploration and communication.\n\n\nFor more detail, visit ggplot2 link.\n\n\n2.1 R Graphics VS ggplot\nFirst, let us compare how R Graphics, the core graphical functions of Base R and ggplot plot a simple histogram.\n\nR Graphicsggplot2\n\n\n\n\nCode\nhist(exam_data$MATHS)\n\n\n\n\n\n\n\n\n\nCode\nggplot(data=exam_data, aes(x = MATHS)) +\n  geom_histogram(bins=10, \n                 boundary = 100,\n                 color=\"black\", \n                 fill=\"grey\") +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\n\n\nWhy ggplot2 is recommended?\n\n\n\n\n\n\nImportant\n\n\n\nThe transferable skills from ggplot2 are not the idiosyncrasies of plotting syntax, but a powerful way of thinking about visualisation, as a way of mapping between variables and the visual properties of geometric objects that you can perceive."
+    "text": "2 Introducing ggplot\nggplot2 is an R package for declaratively creating data-driven graphics based on The Grammar of Graphics\n\nIt is also part of the tidyverse family specially designed for visual exploration and communication.\n\n\nFor more detail, visit ggplot2 link.\n\n\n2.1 R Graphics VS ggplot\nFirst, let us compare how R Graphics, the core graphical functions of Base R and ggplot plot a simple histogram.\n\nR Graphicsggplot2\n\n\n\n\nCode\nhist(exam_data$MATHS)\n\n\n\n\n\n\n\n\n\nCode\nggplot(data=exam_data, aes(x = MATHS)) +\n  geom_histogram(bins=10, \n                 boundary = 100,\n                 color=\"black\", \n                 fill=\"grey\") +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\n\n\nWhy ggplot2 is recommended?\n\n\n\n\n\n\nImportant\n\n\n\nThe transferable skills from ggplot2 are not the idiosyncrasies of plotting syntax, but a powerful way of thinking about visualisation, as a way of mapping between variables and the visual properties of geometric objects that you can perceive."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#getting-started",

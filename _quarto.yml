@@ -31,7 +31,7 @@ website:
       - icon: github
         href: https://github.com/cjh202311
         aria-label: Github
-      - text: 📊
+      - icon: bar-chart-fill
         href: https://public.tableau.com/
         aria-label: Tableau
 format:     
