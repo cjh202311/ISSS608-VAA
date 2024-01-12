@@ -5,9 +5,8 @@ website:
   title: "ISSS608-VAA"
   navbar:
     left: 
-      - href: index.qmd
-        text: 🏠 Home
-      - text: "🙋‍♂️ Hands-on Exercise"
+      - icon: pencil-square
+        text: "Hands-on Exercise"
         menu: 
           - text: "Hands-on Exercise 1"
             href: "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html"
@@ -19,15 +18,23 @@ website:
             
           - text: "Hands-on Exercise 5"
             
-      - text: "🧑‍🏫️ In-class Exercise"
+      - icon: book-half
+        text: "In-class Exercise"
         menu: 
           - text: " In-class Exercise 1"
             
-      - text: "✍️️ Take-home Exercise"
+      - icon: person-fill
+        text: "Take-home Exercise"
         menu: 
-          - text: "  Take-home Exercise 1"
+          - text: "Take-home Exercise 1"
+      - icon: people-fill
+        text: Project
+        menu: 
+          - text: "Group Project"
     right:
-      
+      - href: index.qmd
+        icon: house-door-fill
+        text: Home
       - icon: github
         href: https://github.com/cjh202311
         aria-label: Github
