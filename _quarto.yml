@@ -36,7 +36,7 @@ website:
         aria-label: Tableau
 format:     
   html:
-    theme: Vapor
+    theme: Quartz
     css: styles.css
     toc: true
 
