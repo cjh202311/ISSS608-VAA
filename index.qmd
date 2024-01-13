@@ -6,7 +6,7 @@ listing:
     - "In-class_Ex/*/*.qmd"
     - "Take-home_Ex/*/*.qmd"
   sort:
-    - "date"
+    - "date desc"
     - "title desc"
   type: grid
   fields: [image, date, title, author, reading-time]

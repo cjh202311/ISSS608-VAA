@@ -1,0 +1,53 @@
+---
+title: "In-class Exercise 1: Now you see it!"
+author: "Cai Jingheng"
+date: "Jan,13,2024"
+date-modified: "last-modified"
+toc: true
+number-sections: true
+format: 
+  html: 
+    code-fold: true
+    code-tools: true
+    warning: false
+---
+
+## Loading R packages
+
+In this hands-on exercise, two R packages will be used. They are:
+
+-   [tidyverse](https://www.tidyverse.org/)
+
+-   [haven](https://www.tidyverse.org/)
+
+The code chunk is as follows:
+
+```{r}
+pacman::p_load(tidyverse,haven,dplyr)
+```
+
+## Importing PISA data
+
+The code chunk below uses ['read_sas()'](https://haven.tidyverse.org/reference/read_spss.html) of [haven](https://www.tidyverse.org/) to import PISA data into R environment.
+
+```{r}
+#| eval: false
+stu_qqq <- haven::read_sas("data/cy08msp_stu_qqq.sas7bdat")
+```
+
+```{r}
+#| eval: false
+stu_qqq_SG <- stu_qqq %>%
+  filter(CNT == "SGP")
+```
+
+```{r}
+#| eval: false
+write_rds(stu_qqq_SG,
+          "data/stu_qqq_SG.rds")
+```
+
+```{r}
+stu_qqq_SG <-
+  read_rds("data/stu_qqq_SG.rds")
+```

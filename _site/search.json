@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "ISSS608 Visual Analytics and Applications",
     "section": "",
-    "text": "In this website, you will find my coursework prepared for this course.\n\n\n\n\n\n\nThe latest submission\n\n\n\n\n\n\n\n\n\n\n\n\n\nHands-on Exercise 1: A Layered Grammar of Graphics: ggplot2 methods\n\n\n15 min\n\n\n\nCai Jingheng\n\n\nJan 9, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "In this website, you will find my coursework prepared for this course.\n\n\n\n\n\n\nThe latest submission\n\n\n\n\n\n\n\n\n\n\n\n\n\nIn-class Exercise 1: Now you see it!\n\n\n1 min\n\n\n\nCai Jingheng\n\n\nJan 13, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nHands-on Exercise 1: A Layered Grammar of Graphics: ggplot2 methods\n\n\n15 min\n\n\n\nCai Jingheng\n\n\nJan 9, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -110,5 +110,26 @@
     "title": "Hands-on Exercise 1: A Layered Grammar of Graphics: ggplot2 methods",
     "section": "11 Reference",
     "text": "11 Reference\n\nHadley Wickham (2023) ggplot2: Elegant Graphics for Data Analysis. Online 3rd edition.\nWinston Chang (2013) R Graphics Cookbook 2nd edition. Online version.\nHealy, Kieran (2019) Data Visualization: A practical introduction. Online version\nLearning ggplot2 on Paper – Components\nLearning ggplot2 on Paper – Layer\nLearning ggplot2 on Paper – Scale"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex01/In-class_Ex01.html",
+    "href": "In-class_Ex/In-class_Ex01/In-class_Ex01.html",
+    "title": "In-class Exercise 1: Now you see it!",
+    "section": "",
+    "text": "In this hands-on exercise, two R packages will be used. They are:\n\ntidyverse\nhaven\n\nThe code chunk is as follows:\n\n\nCode\npacman::p_load(tidyverse,haven,dplyr)"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#loading-r-packages",
+    "href": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#loading-r-packages",
+    "title": "In-class Exercise 1: Now you see it!",
+    "section": "",
+    "text": "In this hands-on exercise, two R packages will be used. They are:\n\ntidyverse\nhaven\n\nThe code chunk is as follows:\n\n\nCode\npacman::p_load(tidyverse,haven,dplyr)"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#importing-pisa-data",
+    "href": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#importing-pisa-data",
+    "title": "In-class Exercise 1: Now you see it!",
+    "section": "2 Importing PISA data",
+    "text": "2 Importing PISA data\nThe code chunk below uses ‘read_sas()’ of haven to import PISA data into R environment.\n\n\nCode\nstu_qqq &lt;- haven::read_sas(\"data/cy08msp_stu_qqq.sas7bdat\")\n\n\n\n\nCode\nstu_qqq_SG &lt;- stu_qqq %&gt;%\n  filter(CNT == \"SGP\")\n\n\n\n\nCode\nwrite_rds(stu_qqq_SG,\n          \"data/stu_qqq_SG.rds\")\n\n\n\n\nCode\nstu_qqq_SG &lt;-\n  read_rds(\"data/stu_qqq_SG.rds\")"
   }
 ]
