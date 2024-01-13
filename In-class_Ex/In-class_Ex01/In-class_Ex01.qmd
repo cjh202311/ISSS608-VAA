@@ -10,6 +10,7 @@ format:
     code-fold: true
     code-tools: true
     warning: false
+editor: visual
 ---
 
 ## Loading R packages
