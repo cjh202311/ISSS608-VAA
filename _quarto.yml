@@ -11,7 +11,7 @@ website:
           - text: "Hands-on Exercise 1"
             href: "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html"
           - text: "Hands-on Exercise 2"
-            
+            href: "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html"
           - text: "Hands-on Exercise 3"
             
           - text: "Hands-on Exercise 4"
@@ -28,23 +28,27 @@ website:
         text: "Take-home Exercise"
         menu: 
           - text: "Take-home Exercise 1"
+            href: "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html"
       - icon: people-fill
         text: Project
         menu: 
           - text: "Group Project"
     right:
-      - href: index.qmd
-        icon: house-door-fill
-        text: Home
+      - icon: house-door-fill
+        href: index.qmd
+        text: " "
       - icon: github
         href: https://github.com/cjh202311
         aria-label: Github
       - icon: bar-chart-fill
         href: https://public.tableau.com/
         aria-label: Tableau
+      - icon: envelope-fill
+        href: mailto:jh.cai.2023@mitb.smu.edu.sg
+        
 format:     
   html:
-    theme: Quartz
+    theme: Zephyr
     css: styles.css
     toc: true
 

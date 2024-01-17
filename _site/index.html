@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ISSS608-VAA - ISSS608 Visual Analytics and Applications</title>
+<title>ISSS608-VAA - Visual Analytics and Applications</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -63,20 +63,76 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    const listingTargetEl = window.document.querySelector('#listing-Hands_on_Exercise .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
     }
 
     const options = {
-      valueNames: ['listing-image','listing-date','listing-title','listing-author','listing-reading-time',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-image','listing-date','listing-title','listing-author',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
       searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+    window['quarto-listings']['listing-Hands_on_Exercise'] = new List('listing-Hands_on_Exercise', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-In_Class_Exercise .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-image','listing-date','listing-title','listing-author',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-In_Class_Exercise'] = new List('listing-In_Class_Exercise', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-Take_Home_Exercise .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-image','listing-date','listing-title','listing-author',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-Take_Home_Exercise'] = new List('listing-Take_Home_Exercise', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -125,7 +181,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" rel="" target="">
  <span class="dropdown-text">Hands-on Exercise 1</span></a>
   </li>  
-        <li class="dropdown-header">Hands-on Exercise 2</li>
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 2</span></a>
+  </li>  
         <li class="dropdown-header">Hands-on Exercise 3</li>
         <li class="dropdown-header">Hands-on Exercise 4</li>
         <li class="dropdown-header">Hands-on Exercise 5</li>
@@ -151,7 +210,10 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Take-home Exercise</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
-        <li class="dropdown-header">Take-home Exercise 1</li>
+        <li>
+    <a class="dropdown-item" href="./Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html" rel="" target="">
+ <span class="dropdown-text">Take-home Exercise 1</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -169,7 +231,7 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page"><i class="bi bi-house-door-fill" role="img">
 </i> 
- <span class="menu-text">Home</span></a>
+ <span class="menu-text"> </span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/cjh202311" rel="" target=""><i class="bi bi-github" role="img" aria-label="Github">
@@ -178,6 +240,11 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://public.tableau.com/" rel="" target=""><i class="bi bi-bar-chart-fill" role="img" aria-label="Tableau">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:jh.cai.2023@mitb.smu.edu.sg" rel="" target=""><i class="bi bi-envelope-fill" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
@@ -198,7 +265,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">ISSS608 Visual Analytics and Applications</h1>
+<h1 class="title">Visual Analytics and Applications</h1>
 </div>
 
 
@@ -219,39 +286,13 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="va.png" class="img-fluid figure-img" width="2311"></p>
 </figure>
 </div>
-<section id="the-latest-submission" class="level3">
-<h3 class="anchored" data-anchor-id="the-latest-submission">The latest submission</h3>
-
-
-
-</section>
-
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div class="content-container">
+<section id="hands-on-exercise" class="level2 listing-block">
+<h2 class="anchored" data-anchor-id="hands-on-exercise">Hands On Exercise</h2>
+<p></p>
+<div id="listing-Hands_on_Exercise" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-date-sort="1705075200000" data-listing-file-modified-sort="1705132294916" data-listing-date-modified-sort="1705132294000" data-listing-reading-time-sort="1">
-<a href="./In-class_Ex/In-class_Ex01/In-class_Ex01.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-In-class Exercise 1: Now you see it!
-</h5>
-<div class="listing-reading-time card-text text-muted">
-1 min
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Cai Jingheng
-</div>
-<div class="listing-date">
-Jan 13, 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="1" data-listing-date-sort="1704729600000" data-listing-file-modified-sort="1704972407493" data-listing-date-modified-sort="1704972407000" data-listing-reading-time-sort="15">
+<div class="g-col-1" data-index="0" data-listing-date-sort="1704729600000" data-listing-file-modified-sort="1704972407493" data-listing-date-modified-sort="1704972407000" data-listing-reading-time-sort="15">
 <a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top"><img src="https://r4va.netlify.app/chap01/img/image5.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
@@ -259,9 +300,6 @@ Jan 13, 2024
 <h5 class="no-anchor card-title listing-title">
 Hands-on Exercise 1: A Layered Grammar of Graphics: ggplot2 methods
 </h5>
-<div class="listing-reading-time card-text text-muted">
-15 min
-</div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Cai Jingheng
@@ -274,11 +312,104 @@ Jan 9, 2024
 </div>
 </a>
 </div>
+<div class="g-col-1" data-index="1" data-listing-date-sort="1705161600000" data-listing-file-modified-sort="1705474673789" data-listing-date-modified-sort="1705474673000" data-listing-reading-time-sort="17">
+<a href="./Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex02\Hands-on_Ex02_files\figure-html\unnamed-chunk-3-1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Hands-on Exercise 2: Beyond ggplot2 Fundamentals
+</h5>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Cai Jingheng
+</div>
+<div class="listing-date">
+Jan 14, 2024
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
 </div>
 <div class="listing-no-matching d-none">
 No matching items
 </div>
-</div></main> <!-- /main -->
+</div>
+</section>
+</div>
+<div class="content-container">
+<section id="in-class-exercise" class="level2 listing-block">
+<h2 class="anchored" data-anchor-id="in-class-exercise">In Class Exercise</h2>
+<p></p>
+<div id="listing-In_Class_Exercise" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-listing-date-sort="1705075200000" data-listing-file-modified-sort="1705212687168" data-listing-date-modified-sort="1705212687000" data-listing-reading-time-sort="1">
+<a href="./In-class_Ex/In-class_Ex01/In-class_Ex01.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+In-class Exercise 1: Now you see it!
+</h5>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Cai Jingheng
+</div>
+<div class="listing-date">
+Jan 13, 2024
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
+</section>
+</div>
+<div class="content-container">
+<section id="take-home-exercise" class="level2 listing-block">
+<h2 class="anchored" data-anchor-id="take-home-exercise">Take Home Exercise</h2>
+<p></p>
+<div id="listing-Take_Home_Exercise" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-listing-date-sort="1705161600000" data-listing-file-modified-sort="1705313036842" data-listing-date-modified-sort="1705313036000" data-listing-reading-time-sort="1">
+<a href="./Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Take-home Exercise 1: Creating data visualisation beyond default
+</h5>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Cai Jingheng
+</div>
+<div class="listing-date">
+Jan 14, 2024
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
+</section>
+</div>
+
+
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

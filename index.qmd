@@ -1,20 +1,67 @@
 ---
-title: "ISSS608 Visual Analytics and Applications"
+title: "Visual Analytics and Applications"
 listing: 
-  contents:
-    - "Hands-on_Ex/*/*.qmd"
-    - "In-class_Ex/*/*.qmd"
-    - "Take-home_Ex/*/*.qmd"
-  sort:
-    - "date desc"
-    - "title desc"
-  type: grid
-  fields: [image, date, title, author, reading-time]
+
+  - id: Hands_on_Exercise
+    contents:
+      - "Hands-on_Ex/*/*.qmd"
+    sort:
+      - "title"
+    type: grid
+    fields: [image, date, title, author]
+  - id: In_Class_Exercise
+    contents:
+      - "In-class_Ex/*/*.qmd"
+    sort:
+      - "title"
+    type: grid
+    fields: [image, date, title, author]
+  
+  - id: Take_Home_Exercise
+    contents:
+      - "Take-home_Ex/*/*.qmd"
+    sort:
+      - "title"
+    type: grid
+    fields: [image, date, title, author]
 toc: false
+
 ---
 
 In this website, you will find my coursework prepared for this course.
 
 ![](va.png){fig-align="center" width="2311"}
 
-### The latest submission
+
+::: content-container
+::: listing-block
+## Hands On Exercise
+
+</a>
+
+::: {#Hands_on_Exercise}
+:::
+:::
+:::
+
+::: content-container
+::: listing-block
+## In Class Exercise
+
+</a>
+
+::: {#In_Class_Exercise}
+:::
+:::
+:::
+
+::: content-container
+::: listing-block
+## Take Home Exercise
+
+</a>
+
+::: {#Take_Home_Exercise}
+:::
+:::
+:::
