@@ -409,8 +409,14 @@ From the box plot above, it is clear that students with their own rooms generall
 
 ## Conclusion
 
-The visualizations showed right-skewed score distributions, indicating median scores surpassing the mean. Gender differences were observed, with males slightly excelling in mathematics, while females performed better in reading. School-level analysis showcased a wide performance variation, with some excelling in specific subjects. Socioeconomic factors like musical instruments and private spaces influenced scores positively. Students with more instruments tended to perform better, and those with private rooms consistently outperformed peers without.
+-   The distribution of students' performance across subjects is right-skewed , indicating that the majority of students tend to have scores clustered towards the higher end of the scale, with a tail extending towards the lower scores.
+
+-   Gender differences were observed, with males slightly excelling in mathematics, while females performed better in reading.
+
+-   School-level analysis showcased a wide performance variation, with some excelling in specific subjects.
+
+-   Socioeconomic factors like musical instruments and private spaces influenced scores positively. Students with more instruments tended to perform better, and those with private rooms consistently outperformed peers without.
 
 ## Limitations
 
-However, it is essential to acknowledge certain limitations in our analysis. The exploration primarily relied on visualizations and graphical representations to uncover patterns and insights. While these visualizations offer a comprehensive overview of the data, they lack the precision and depth that statistical analysis methods could provide.The absence of rigorous statistical tests, such as hypothesis testing or regression analyses, limits our ability to make definitive causal inferences or uncover more nuanced relationships between variables.
+However, it is essential to acknowledge certain limitations in our analysis. The exploration primarily relied on visualizations and graphical representations to uncover patterns and insights. While these visualizations offer a comprehensive overview of the data, they lack the precision and depth that statistical analysis methods could provide. For example, a linear regression fitting a line between the number of musical instruments owned and performance on maths, reading, science and overall grades would only provide a general trend in the relationship and would not establish causality. This trend is a preliminary observation, after which further exploration of the relationship between musical equipment and academic performance may require more in-depth statistical analyses that take into account additional variables and possible interactions.
