@@ -7,26 +7,56 @@ toc: true
 number-sections: true
 format: 
   html: 
-    code-fold: true
     code-tools: true
     warning: false
 ---
 
-## Loading R packages
+## Background
+
+OECD education director Andreas Schleicher shared in a BBC article that "Singapore managed to achieve excellence without wide differences between children from wealthy and disadvantaged families." (2016) Furthermore, several Singapore's Minister for Education also started an "every school a good school" slogan. The general public, however, strongly belief that there are still disparities that exist, especially between the elite schools and neighborhood school, between students from families with higher socioeconomic status and those with relatively lower socioeconomic status and immigration and non-immigration families.
+
+## Objective
+
+In this exploratory data analysis (EDA) exercise, the primary objectives are to employ suitable methods and ggplot2 functions for the following:
+
+-   **Uncover the Distribution of Student Performance:**
+
+    Explore and visualize the distribution of Singaporean students' performance in mathematics, reading, and science. Utilize ggplot2 functions to create informative and insightful visualizations that highlight patterns and variations in student scores across these subjects.
+
+-   **Examine the Relationship Between Performance and School, Gender, and Socioeconomic Status:**
+
+    Investigate and illustrate the connections between students' academic performances in *mathematics*, *reading*, and *science* with respect to different factors such as *schools, gender*, and socioeconomic status (e.g. o*wning their own home*, *number of musical instruments*). Leverage ggplot2 to create meaningful plots that facilitate a comprehensive understanding of these relationships.
+
+## **Data Preparation**
+
+### Loading R packages
 
 In this hands-on exercise, two R packages will be used. They are:
 
--   [tidyverse](https://www.tidyverse.org/)
+1.  **tidyverse:** An ecosystem of R packages, including dplyr, ggplot2, tidyr, and others, designed to work together seamlessly for data manipulation and visualization.
 
--   [haven](https://www.tidyverse.org/)
+2.  **haven:** A package for reading and writing data in various formats, including SAS, SPSS, and Stata.
+
+3.  **dplyr:** A powerful package for data manipulation, providing functions like filter(), select(), mutate(), and summarise().
+
+4.  **plotly:** A versatile package for creating interactive and dynamic plots, suitable for use in web applications.
+
+5.  **ggrepel:** An extension of ggplot2 that adds the ability to automatically adjust and repel text labels to avoid overlapping.
+
+6.  **patchwork:** A package for combining multiple ggplot2 plots into a single plot.
+
+7.  **ggthemes:** Additional themes and color scales for use with ggplot2, allowing customization of the appearance of plots.
+
+8.  **hrbrthemes:** A collection of themes and color palettes for use with ggplot2, created by Hadley Wickham.
 
 The code chunk is as follows:
 
 ```{r}
-pacman::p_load(tidyverse,haven,dplyr)
+pacman::p_load(tidyverse,haven,dplyr,plotly,ggrepel, patchwork, 
+               ggthemes, hrbrthemes)
 ```
 
-## Importing PISA data
+### Importing PISA data
 
 The code chunk below uses ['read_sas()'](https://haven.tidyverse.org/reference/read_spss.html) of [haven](https://www.tidyverse.org/) to import PISA data into R environment.
 
@@ -35,11 +65,15 @@ The code chunk below uses ['read_sas()'](https://haven.tidyverse.org/reference/r
 stu_qqq <- haven::read_sas("data/cy08msp_stu_qqq.sas7bdat")
 ```
 
+For this exercise, we only need to analyse the Singapore region, and the following code is used to filter the students in Singapore.
+
 ```{r}
 #| eval: false
 stu_qqq_SG <- stu_qqq %>%
   filter(CNT == "SGP")
 ```
+
+Next, we save the filtered data as a new data file to promote running efficiency.
 
 ```{r}
 #| eval: false
@@ -51,3 +85,332 @@ write_rds(stu_qqq_SG,
 stu_qqq_SG <-
   read_rds("data/stu_qqq_SG.rds")
 ```
+
+The dataset has 1279 variables and 6606 observations. In preparation for visual analysis, the following code collates the relevant variables and integrates them into the PV dataset:
+
+```{r}
+# Create a new dataset PV by extracting relevant variables from stu_qqq_SG
+PV <- stu_qqq_SG %>%
+  mutate(
+    Math_Score = rowMeans(select(., starts_with("PV1MATH"), starts_with("PV2MATH"), starts_with("PV3MATH"), starts_with("PV4MATH"), starts_with("PV5MATH"), starts_with("PV6MATH"), starts_with("PV7MATH"), starts_with("PV8MATH"), starts_with("PV9MATH"), starts_with("PV10MATH")), na.rm = TRUE),
+    Reading_Score = rowMeans(select(., starts_with("PV1READ"), starts_with("PV2READ"), starts_with("PV3READ"), starts_with("PV4READ"), starts_with("PV5READ"), starts_with("PV6READ"), starts_with("PV7READ"), starts_with("PV8READ"), starts_with("PV9READ"), starts_with("PV10READ")), na.rm = TRUE),
+    Science_Score = rowMeans(select(., starts_with("PV1SCIE"), starts_with("PV2SCIE"), starts_with("PV3SCIE"), starts_with("PV4SCIE"), starts_with("PV5SCIE"), starts_with("PV6SCIE"), starts_with("PV7SCIE"), starts_with("PV8SCIE"), starts_with("PV9SCIE"), starts_with("PV10SCIE")), na.rm = TRUE),
+    Total_Score = Math_Score + Reading_Score + Science_Score,
+    Gender = ifelse(ST004D01T == 1,  "Female", "Male"),
+    Own_Room = ifelse(ST250Q01JA == 1, "Yes" , "No"),
+    mi_num = ST251Q06JA
+  ) %>%
+  select(CNTSCHID, CNTSTUID, Math_Score, Reading_Score, Science_Score, Total_Score, Gender, Own_Room, mi_num)
+
+```
+
+In the following code we check the dataset using *"str":*
+
+```{r}
+str(PV)
+```
+
+The following code converts school ID and student ID from numeric values to characters:
+
+```{r}
+PV$CNTSCHID <- as.character(PV$CNTSCHID)
+PV$CNTSCHID <- as.character(PV$CNTSTUID)
+```
+
+In the last step, the following code is used to clear the missing values:
+
+```{r}
+PV <- na.omit(PV)
+```
+
+### Variables Description
+
+| Variables     | Description                                                                           |
+|-----------------------|-------------------------------------------------|
+| CNTSCHID      | School ID, uniquely identifying each school                                           |
+| CNTSTUID      | Student ID, uniquely identifying each student                                         |
+| Math_Score    | Average math score computed from ten different tests for each student                 |
+| Reading_Score | Average reading score computed from ten different tests for each student              |
+| Science_Score | Average science score computed from ten different tests for each student              |
+| Total_Score   | Overall average score computed as the sum of math, reading, and science scores        |
+| Gender        | Categorical variable indicating the gender of the student (either "Male" or "Female") |
+| Own_Room      | Binary variable indicating whether the student has their own room ("Yes" or "No")     |
+| mi_num        | Numeric variable representing the number of musical instruments at the student's home |
+
+## **Exploratory Data Analysis**
+
+### **Distribution of Student Performance**
+
+The following code plots histograms of maths, reading, science, and total score scores to observe the distribution of student performance:
+
+```{r}
+#| code-fold: true
+plot1 <- ggplot(data = PV, aes(x = Math_Score)) +
+  geom_histogram(bins = 10, boundary = 100, color = "blue", fill = "#3459e6") +
+  ggtitle("Distribution of Maths scores")+
+  theme_minimal() +
+  theme(text = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5))
+
+plot2 <- ggplot(data = PV, aes(x = Reading_Score)) +
+  geom_histogram(bins = 10, boundary = 100, color = "blue", fill = "#3459e6") +
+  ggtitle("Distribution of Reading scores")+
+  theme_minimal() +
+  theme(text = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5))
+
+plot3 <- ggplot(data = PV, aes(x = Science_Score)) +
+  geom_histogram(bins = 10, boundary = 100, color = "blue", fill = "#3459e6") +
+  ggtitle("Distribution of Science scores")+
+  theme_minimal() +
+  theme(text = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5))
+
+plot4 <- ggplot(data = PV, aes(x = Total_Score)) +
+  geom_histogram(bins = 10, boundary = 100, color = "blue", fill = "#3459e6") +
+  ggtitle("Distribution of Total scores")+
+  theme_minimal() +
+  theme(text = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5))
+
+plot1 + plot2 + plot3 + plot4
+```
+
+::: {.callout-tip appearance="simple"}
+## Insights from Visualisations
+
+The histograms of Math, Reading, Science, and Total scores reveal a right-skewed distribution indicating that the median surpasses the mean.
+:::
+
+### **Student Performance by Gender**
+
+The following code generates density plots to compare the distribution of academic performance between students of different genders, providing a comprehensive understanding of the gender differences in academic achievement.
+
+```{r}
+#| code-fold: true
+
+plot1 <- ggplot(data = PV, aes(x = Math_Score, fill = Gender)) +
+  geom_density(alpha = 0.7, position = "identity", stat = "density") +  
+   scale_fill_manual(values = c("Female" = "#FF5733", "Male" = "#3459e6")) +
+  labs(title = "Math Scores by Gender") +
+  theme(legend.position = "none") +
+  scale_y_continuous(labels = scales::percent) +
+  theme_minimal() +
+  theme(text = element_text(size = 8), plot.title = element_text(hjust = 0.5))
+
+plot2 <- ggplot(data = PV, aes(x = Reading_Score, fill = Gender)) +
+  geom_density(alpha = 0.7, position = "identity", stat = "Density") +
+  scale_fill_manual(values = c("Female" = "#FF5733", "Male" = "#3459e6")) +
+  labs(title = "Reading Scores by Gender") +
+  theme(legend.position = "none") +
+  scale_y_continuous(labels = scales::percent)+
+  theme_minimal() +
+  theme(text = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5))
+
+plot3 <- ggplot(data = PV, aes(x = Science_Score, fill = Gender)) +
+  geom_density(alpha = 0.7, position = "identity", stat = "Density") +
+  scale_fill_manual(values = c("Female" = "#FF5733", "Male" = "#3459e6")) +
+  labs(title = "Science Scores by Gender") +
+  theme(legend.position = "none") +
+  scale_y_continuous(labels = scales::percent)+
+  theme_minimal() +
+  theme(text = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5))
+
+plot4 <- ggplot(data = PV, aes(x = Total_Score, fill = Gender)) +
+  geom_density(alpha = 0.7, position = "identity", stat = "density") +
+  scale_fill_manual(values = c("Female" = "#FF5733", "Male" = "#3459e6")) +
+  labs(title = "Total Scores by Gender") + 
+  scale_y_continuous(labels = scales::percent)+
+  theme_minimal() +
+  theme(text = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5))
+
+combined_plots <- plot1 + plot2 + plot3 + plot4 +
+  plot_layout(guides = "collect")
+
+combined_plots
+```
+
+::: {.callout-tip appearance="simple"}
+## Insights from Visualisations
+
+-   Mathematics: The performance distribution in mathematics is similar for both males and females, but males have a slight edge in math scores.
+
+-   Reading: Females have a slight advantage in reading scores compared to males, with males having a slightly lower distribution of scores.
+
+-   Science: The distribution of science scores is similar for males and females, but males tend to have slightly higher scores.
+
+-   Total Score: The overall performance distribution in total scores is similar for males and females, with no significant gender differences.
+:::
+
+### **Student Performance by School**
+
+The following code calculates the maths, reading, and science, as well as the average grades in these three subjects for each school's students, and synthesises a new dataset for graphing in the next step.
+
+```{r}
+#| code-fold: true
+School_Avg_Scores <- PV %>%
+  group_by(CNTSCHID) %>%
+  summarize(
+    Avg_Math_Score = mean(Math_Score, na.rm = TRUE),
+    Avg_Reading_Score = mean(Reading_Score, na.rm = TRUE),
+    Avg_Science_Score = mean(Science_Score, na.rm = TRUE),
+    Avg_Score = mean(Total_Score/3, na.rm = TRUE)
+  )
+School_Avg_Scores_subjects <- School_Avg_Scores %>%
+  select(CNTSCHID, starts_with("Avg_Math"), starts_with("Avg_Reading"), starts_with("Avg_Science"),starts_with("Avg_Score"))
+School_Avg_Scores_long <- School_Avg_Scores_subjects %>%
+  pivot_longer(cols = -CNTSCHID, names_to = "Subject", values_to = "Score")
+
+```
+
+The following code draws box plots showing the distribution of school average scores in each subject, with text labels identifying the four highest-scoring schools and the two lowest-scoring schools in each subject.
+
+```{r}
+#| code-fold: true
+
+outliers_data <- School_Avg_Scores %>%
+  pivot_longer(cols = starts_with("Avg_"), names_to = "Subject", values_to = "Score") %>%
+  group_by(Subject) %>%
+  arrange(Score) %>%
+  slice(c(1:2, (n() - 3):(n())))
+
+ggplot(School_Avg_Scores_long, aes(x = Subject, y = Score, fill = Subject)) +
+  geom_boxplot(fill = "#3459e6") +
+  geom_text_repel(data = outliers_data, aes(label = CNTSCHID), 
+                  position = position_dodge(width = 1), 
+                  box.padding = 0.8, 
+                  force = 1, 
+                  segment.color = "grey50", 
+                  size = 2) +  # Use ggrepel's geom_text_repel
+  labs(title = "Boxplot of Average Scores for Each Subject", x = "", y = "") +
+  theme_minimal() +
+  theme(text = element_text(size = 10),
+        plot.title = element_text(hjust = 0.5))
+
+
+```
+
+::: {.callout-tip appearance="simple"}
+## Insights from Visualisations
+
+-   The variation in subject and average scores across schools is very wide, with the top performing schools able to have an average score of about 800 per subject. However, schools at the bottom end of the scale have less than 300, and even less than 200 in reading.
+
+-   Students from two schools, 70201256 and 70201120, had top average performance in two of the three subjects and top average scores per subject.
+
+-   Students from two schools, 70205525 and 70202489, performed poorly.
+
+-   Some schools had students who were at the top in individual subjects but did not rank very high in the overall rankings, suggesting that these schools were better educated in certain individual subjects, e.g., 70205185 in reading.
+:::
+
+### **Student Performance by Musical Instruments**
+
+The following code shows scatter plots of students' maths, reading, science and overall performance against the number of musical instruments owned, as well as showing the relationship by fitting a line through linear regression.
+
+```{r}
+#| code-fold: true
+plot_math <- ggplot(data=PV, aes(x=mi_num, y=Math_Score)) +
+  geom_point(color="#3459e6") +
+  geom_smooth(method=lm, size=0.5,color = "#FF5733") +
+  labs(title ="Math Score by Musical instruments", x = "", y = "")+
+    theme_minimal() +
+  theme(text = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5))
+
+
+plot_reading <- ggplot(data=PV, aes(x=mi_num, y=Reading_Score)) +
+  geom_point(color="#3459e6") +
+  geom_smooth(method=lm, size=0.5,color = "#FF5733") +
+  labs(title ="Reading Score by Musical instruments", x = "", y = "")+
+    theme_minimal() +
+  theme(text = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5))
+
+
+plot_science <- ggplot(data=PV, aes(x=mi_num, y=Science_Score)) +
+  geom_point(color="#3459e6") +
+  geom_smooth(method=lm, size=0.5,color = "#FF5733") +
+  labs(title ="Science Score by Musical instruments", x = "", y = "")+
+    theme_minimal() +
+  theme(text = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5))
+
+
+plot_total <- ggplot(data=PV, aes(x=mi_num, y=Total_Score)) +
+  geom_point(color="#3459e6") +
+  geom_smooth(method=lm, size=0.5,color = "#FF5733") +
+  labs(title ="Total Score by Musical instruments", x = "", y = "")+
+  theme_minimal() +
+  theme(text = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5))
+
+
+combined_plot <- plot_math + plot_reading + plot_science + plot_total
+combined_plot
+  
+```
+
+::: {.callout-tip appearance="simple"}
+## Insights from Visualisations
+
+As can be seen by the graph, the linear regression fit line is slightly upward, suggesting that students with more musical equipment in this dataset are likely to trend better in maths, reading, science, and overall performance in general.
+:::
+
+### **Student Performance by Own room**
+
+The following code plots box-and-line graphs to compare student performance in maths, reading, science and overall scores by whether or not they had the room to themselves.
+
+```{r}
+#| code-fold: true
+p1 <- ggplot(data = PV, aes(x =Math_Score , y = Own_Room)) +
+        geom_boxplot(fill = "#3459e6") +
+        labs(title ="Math Score by Private Space",x = "", y = "")+
+        theme_minimal() +
+        theme(text = element_text(size = 8),
+              plot.title = element_text(hjust = 0.5))
+
+p2 <- ggplot(data = PV, aes(x =Reading_Score , y = Own_Room)) +
+        geom_boxplot( fill = "#3459e6") +
+     
+        labs(title ="Reading Score by Private Space", x = "", y = "")+
+        theme_minimal() +
+        theme(text = element_text(size = 8),
+              plot.title = element_text(hjust = 0.5))
+  
+p3 <- ggplot(data = PV, aes(x = Science_Score , y = Own_Room)) +
+        geom_boxplot( fill = "#3459e6") +
+       
+        labs(title ="Science Score by Private Space", x = "", y = "")+
+        theme_minimal() +
+        theme(text = element_text(size = 8),
+              plot.title = element_text(hjust = 0.5))  
+
+p4 <- ggplot(data = PV, aes(x = Total_Score , y = Own_Room)) +
+        geom_boxplot( fill = "#3459e6") +
+       
+        labs(title ="Total Score by Private Space", x = "", y = "")+
+        theme_minimal() +
+        theme(text = element_text(size = 8),
+              plot.title = element_text(hjust = 0.5))
+
+
+combined_plot<- p1 + p2 + p3 + p4
+combined_plot
+
+```
+
+::: {.callout-tip appearance="simple"}
+## Insights from Visualisations
+
+From the box plot above, it is clear that students with their own rooms generally outperform students without their own rooms in maths, reading, science, and overall scores. This may be because a quiet, distraction-free environment helps students focus better on their studies, which in turn improves their academic performance.
+:::
+
+## Conclusion
+
+The visualizations showed right-skewed score distributions, indicating median scores surpassing the mean. Gender differences were observed, with males slightly excelling in mathematics, while females performed better in reading. School-level analysis showcased a wide performance variation, with some excelling in specific subjects. Socioeconomic factors like musical instruments and private spaces influenced scores positively. Students with more instruments tended to perform better, and those with private rooms consistently outperformed peers without.
+
+## Limitations
+
+However, it is essential to acknowledge certain limitations in our analysis. The exploration primarily relied on visualizations and graphical representations to uncover patterns and insights. While these visualizations offer a comprehensive overview of the data, they lack the precision and depth that statistical analysis methods could provide.The absence of rigorous statistical tests, such as hypothesis testing or regression analyses, limits our ability to make definitive causal inferences or uncover more nuanced relationships between variables.
