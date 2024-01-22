@@ -1,0 +1,62 @@
+---
+title: "Hands-on Exercise 3B:Programming Animated Statistical Graphics with R"
+author: "Cai Jingheng"
+date: "Jan,22,2024"
+date-modified: "last-modified"
+toc: true
+number-sections: true
+format: 
+  html: 
+    code-tools: true
+    warning: false
+---
+
+## **Overview**
+
+When telling a visually-driven data story, animated graphics tends to attract the interest of the audience and make deeper impression than static graphics. In this hands-on exercise, you will learn how to create animated data visualisation by using **gganimate** and **plotly r** packages. At the same time, you will also learn how to (i) reshape data by using **tidyr** package, and (ii) process, wrangle and transform data by using **dplyr** package.
+
+### **Basic concepts of animation**
+
+When creating animations, the plot does not actually move. Instead, many individual plots are built and then stitched together as movie frames, just like an old-school flip book or cartoon. Each frame is a different plot when conveying motion, which is built using some relevant subset of the aggregate data. The subset drives the flow of the animation when stitched back together.
+
+![](https://r4va.netlify.app/chap04/img/image1.jpg)
+
+### **Terminology**
+
+Before we dive into the steps for creating an animated statistical graph, it\'s important to understand some of the key concepts and terminology related to this type of visualization.
+
+1.  **Frame**: In an animated line graph, each frame represents a different point in time or a different category. When the frame changes, the data points on the graph are updated to reflect the new data.
+
+2.  **Animation Attributes**: The animation attributes are the settings that control how the animation behaves. For example, you can specify the duration of each frame, the easing function used to transition between frames, and whether to start the animation from the current frame or from the beginning.
+
+::: callout-tip
+
+Before you start making animated graphs, you should first ask yourself: Does it makes sense to go through the effort? If you are conducting an exploratory data analysis, a animated graphic may not be worth the time investment. However, if you are giving a presentation, a few well-placed animated graphics can help an audience connect with your topic remarkably better than static counterparts.
+:::
+
+## **Getting Started**
+
+### **Loading the R packages**
+
+First, write a code chunk to check, install and load the following R packages:
+
+-   [**plotly**](https://plotly.com/r/), R library for plotting interactive statistical graphs.
+
+-   [**gganimate**](https://gganimate.com/), an ggplot extension for creating animated statistical graphs.
+
+-   [**gifski**](https://cran.r-project.org/web/packages/gifski/) converts video frames to GIF animations using pngquant\'s fancy features for efficient cross-frame palettes and temporal dithering. It produces animated GIFs that use thousands of colors per frame.
+
+-   [**gapminder**](https://cran.r-project.org/web/packages/gapminder/): An excerpt of the data available at Gapminder.org. We just want to use its *country_colors* scheme.
+
+-   [**tidyverse**](https://www.tidyverse.org/), a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs.
+
+```{r}
+pacman::p_load(readxl, gifski, gapminder,
+               plotly, gganimate, tidyverse)
+```
+
+###  **Importing the data**
+
+In this hands-on exercise, the *Data* worksheet from *GlobalPopulation* Excel workbook will be used.
+
+Write a code chunk to import Data worksheet from GlobalPopulation Excel workbook by using appropriate R package from tidyverse family.
