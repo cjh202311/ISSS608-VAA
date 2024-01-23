@@ -126,7 +126,7 @@ PV <- na.omit(PV)
 ### Variables Description
 
 | Variables     | Description                                                                           |
-|-----------------------|-------------------------------------------------|
+|---------------|---------------------------------------------------------------------------------------|
 | CNTSCHID      | School ID, uniquely identifying each school                                           |
 | CNTSTUID      | Student ID, uniquely identifying each student                                         |
 | Math_Score    | Average math score computed from ten different tests for each student                 |
