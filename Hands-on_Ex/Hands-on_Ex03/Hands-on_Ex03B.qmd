@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise 3B:Programming Animated Statistical Graphics with R"
+title: "Hands-on Exercise 3B: Programming Animated Statistical Graphics with R"
 author: "Cai Jingheng"
 date: "Jan,22,2024"
 date-modified: "last-modified"
