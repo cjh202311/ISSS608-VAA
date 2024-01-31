@@ -265,7 +265,7 @@ p3 <- ggplot(data = clean_short_df,
 
 ## Sketch of Proposed Design
 
-![](images/sketch 1.jpg){fig-align="center"}
+![](images/sketch%201.jpg){fig-align="center"}
 
 ## Final Design
 
@@ -380,7 +380,7 @@ p7+p8+p9
 
 ## Sketch of Proposed Design
 
-![](images/sketch 2.jpg){fig-align="center"}
+![](images/sketch%202.jpg){fig-align="center"}
 
 ## Final Design
 
@@ -491,7 +491,7 @@ p10+p11+p12
 
 ## Sketch of Proposed Design
 
-![](images/sketch 3.jpg){fig-align="center"}
+![](images/sketch%203.jpg){fig-align="center"}
 
 ## Final Design
 
@@ -573,5 +573,3 @@ p10 / p11 / p12
 
 -   Used **`scale_color_manual`** for the customization of colors for each ESC status. This not only contributes to improved clarity by differentiating between categories but also enhances the overall aesthetics of the plots. Distinct colors make the visual representation more appealing.
 :::
-
-

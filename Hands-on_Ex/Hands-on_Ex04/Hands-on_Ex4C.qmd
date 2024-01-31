@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise 4C: Visualising Distribution"
+title: "Hands-on Exercise 4C: Visualising Uncertainty"
 author: "Cai Jingheng"
 date: "Jan,30,2024"
 date-modified: "last-modified"
@@ -48,12 +48,12 @@ For the purpose of this exercise, *Exam_data.csv* will be used.
 exam <- read_csv("data/Exam_data.csv")
 ```
 
-##  **Visualizing the uncertainty of point estimates: ggplot2 methods**
+## **Visualizing the uncertainty of point estimates: ggplot2 methods**
 
 A point estimate is a single number, such as a mean. Uncertainty, on the other hand, is expressed as standard error, confidence interval, or credible interval.
 
 ::: callout-important
--   Don\'t confuse the uncertainty of a point estimate with the variation in the sample
+-   Don't confuse the uncertainty of a point estimate with the variation in the sample
 :::
 
 In this section, you will learn how to plot error bars of maths scores by race by using data provided in *exam* tibble data frame.
@@ -82,7 +82,6 @@ my_sum <- exam %>%
 :::
 
 ::: callout-note
-
 For the mathematical explanation, please refer to Slide 20 of Lesson 4.
 :::
 
@@ -151,7 +150,7 @@ ggplot(my_sum) +
 -   `labs()` argument of ggplot2 is used to change the x-axis label.
 :::
 
-###  **Visualizing the uncertainty of point estimates with interactive error bars**
+### **Visualizing the uncertainty of point estimates with interactive error bars**
 
 In this section, you will learn how to plot interactive error bars for the 99% confidence interval of mean maths score by race as shown in the figure below.
 
@@ -208,7 +207,7 @@ bscols(widths = c(4,8),
 
 -   It is designed for both frequentist and Bayesian uncertainty visualization, taking the view that uncertainty visualization can be unified through the perspective of distribution visualization:
 
-    -   for frequentist models, one visualises confidence distributions or bootstrap distributions (see vignette(\"freq-uncertainty-vis\"));
+    -   for frequentist models, one visualises confidence distributions or bootstrap distributions (see vignette("freq-uncertainty-vis"));
 
     -   for Bayesian models, one visualises probability distributions (see the tidybayes package, which builds on top of ggdist).
 
@@ -290,7 +289,7 @@ exam %>%
   theme_minimal()
 ```
 
-##  **Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
+## **Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
 
 Step 1: Installing ungeviz package
 
@@ -316,7 +315,7 @@ ggplot(data = exam,
   transition_states(.draw, 1, 3)
 ```
 
-##  **Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
+## **Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
 
 ```{r}
 ggplot(data = exam, 

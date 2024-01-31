@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise 4B: Visualising Distribution"
+title: "Hands-on Exercise 4B: Visual Statistical Analysis"
 author: "Cai Jingheng"
 date: "Jan,30,2024"
 date-modified: "last-modified"
@@ -60,7 +60,7 @@ gghistostats(
 
 -   A Bayes factor is the ratio of the likelihood of one particular hypothesis to the likelihood of another. It can be interpreted as a measure of the strength of evidence in favor of one theory among two competing theories.
 
--   That\'s because the Bayes factor gives us a way to evaluate the data in favor of a null hypothesis, and to use external information to do so. It tells us what the weight of the evidence is in favor of a given hypothesis.
+-   That's because the Bayes factor gives us a way to evaluate the data in favor of a null hypothesis, and to use external information to do so. It tells us what the weight of the evidence is in favor of a given hypothesis.
 
 -   When we are comparing two hypotheses, H1 (the alternate hypothesis) and H0 (the null hypothesis), the Bayes Factor is often written as B10. It can be defined mathematically as
 
@@ -99,7 +99,7 @@ ggbetweenstats(
   pairwise.display = "s",
   p.adjust.method = "fdr",
   messages = FALSE
-)
+)+theme_minimal()
 ```
 
 ### **Significant Test of Correlation: *ggscatterstats()***
@@ -112,7 +112,7 @@ ggscatterstats(
   x = MATHS,
   y = ENGLISH,
   marginal = FALSE,
-  )
+  )+theme_minimal()
 ```
 
 ### **Significant Test of Association (Depedence) : *ggbarstats()* methods**
@@ -132,7 +132,7 @@ In this code chunk below [*ggbarstats()*](https://indrajeetpatil.github.io/ggsta
 ```{r}
 ggbarstats(exam1, 
            x = MATHS_bins, 
-           y = GENDER)
+           y = GENDER)+theme_minimal()
 ```
 
 ## **Visualising Models**
