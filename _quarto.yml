@@ -16,8 +16,12 @@ website:
             href: "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03A.html"
           - text: "Hands-on Exercise 3B"
             href: "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03B.html"
-          - text: "Hands-on Exercise 4"
-            
+          - text: "Hands-on Exercise 4A"
+            href: "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex4A.html"
+          - text: "Hands-on Exercise 4B"
+            href: "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex4B.html"
+          - text: "Hands-on Exercise 4C"
+            href: "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex4C.html"
           - text: "Hands-on Exercise 5"
             
       - icon: book-half
