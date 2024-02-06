@@ -52,7 +52,7 @@ covid19 <- read_csv("data/COVID-19_DKI_Jakarta.csv") %>%
 head(covid19,5)
 ```
 
-##  **FunnelPlotR methods**
+## **FunnelPlotR methods**
 
 [**FunnelPlotR**](https://nhs-r-community.github.io/FunnelPlotR/) package uses ggplot to generate funnel plots. It requires a `numerator` (events of interest), `denominator` (population to be considered) and `group`. The key arguments selected for customisation are:
 
@@ -88,7 +88,7 @@ Things to learn from the code chunk above.
 
 -   `group` in this function is different from the scatterplot. Here, it defines the level of the points to be plotted i.e. Sub-district, District or City. If Cityc is chosen, there are only six data points.
 
--   By default, `data_type`argument is \"SR\".
+-   By default, `data_type`argument is "SR".
 
 -   `limit`: Plot limits, accepted values are: 95 or 99, corresponding to 95% or 99.8% quantiles of the distribution.
 
@@ -111,7 +111,7 @@ funnel_plot(
 A funnel plot object with 267 points of which 7 are outliers.  Plot is adjusted for overdispersion. 
 ```
 
-Things to learn from the code chunk above. + `data_type` argument is used to change from default \"SR\" to \"PR\" (i.e. proportions). + `xrange` and `yrange` are used to set the range of x-axis and y-axis
+Things to learn from the code chunk above. + `data_type` argument is used to change from default "SR" to "PR" (i.e. proportions). + `xrange` and `yrange` are used to set the range of x-axis and y-axis
 
 ### **FunnelPlotR methods: Makeover 2**
 
@@ -179,7 +179,7 @@ dfCI <- data.frame(number.ll95, number.ul95, number.ll999,
                    number.ul999, number.seq, fit.mean)
 ```
 
-###  **Plotting a static funnel plot**
+### **Plotting a static funnel plot**
 
 In the code chunk below, ggplot2 functions are used to plot a static funnel plot.
 
