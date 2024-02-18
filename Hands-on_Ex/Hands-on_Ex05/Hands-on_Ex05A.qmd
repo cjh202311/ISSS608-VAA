@@ -14,7 +14,7 @@ format:
 
 ## **Overview**
 
-Ternary plots are a way of displaying the distribution and variability of three-part compositional data. (For example, the proportion of aged, economy active and young population or sand, silt, and clay in soil.) It\'s display is a triangle with sides scaled from 0 to 1. Each side represents one of the three components. A point is plotted so that a line drawn perpendicular from the point to each leg of the triangle intersect at the component values of the point.
+Ternary plots are a way of displaying the distribution and variability of three-part compositional data. (For example, the proportion of aged, economy active and young population or sand, silt, and clay in soil.) It's display is a triangle with sides scaled from 0 to 1. Each side represents one of the three components. A point is plotted so that a line drawn perpendicular from the point to each leg of the triangle intersect at the component values of the point.
 
 In this hands-on, you will learn how to build ternary plot programmatically using R for visualising and analysing population structure of Singapore.
 
@@ -34,7 +34,7 @@ For this exercise, two main R packages will be used in this hands-on exercise, t
 
 -   [**ggtern**](http://www.ggtern.com/), a ggplot extension specially designed to plot ternary diagrams. The package will be used to plot static ternary plots.
 
--   [**Plotly R**](https://plot.ly/r/), an R package for creating interactive web-based graphs via plotly\'s JavaScript graphing library, plotly.js . The **plotly R** libary contains the *ggplotly* function, which will convert **ggplot2** figures into a Plotly object.
+-   [**Plotly R**](https://plot.ly/r/), an R package for creating interactive web-based graphs via plotly's JavaScript graphing library, plotly.js . The **plotly R** libary contains the *ggplotly* function, which will convert **ggplot2** figures into a Plotly object.
 
 We will also need to ensure that selected **tidyverse** family packages namely: **readr**, **dplyr** and **tidyr** are also installed and loaded.
 
@@ -71,7 +71,7 @@ To important *respopagsex2000to2018_tidy.csv* into R, ***read_csv()*** function 
 pop_data <- read_csv("data/respopagsex2000to2018_tidy.csv") 
 ```
 
-###  **Preparing the Data**
+### **Preparing the Data**
 
 Next, use the ***mutate()*** function of **dplyr** package to derive three new measures, namely: young, active, and old.
 
@@ -108,7 +108,7 @@ ggtern(data=agpop_mutated, aes(x=YOUNG,y=ACTIVE, z=OLD)) +
   theme_rgbw()
 ```
 
-###  **Plotting an interative ternary diagram**
+### **Plotting an interative ternary diagram**
 
 The code below create an interactive ternary plot using ***plot_ly()*** function of **Plotly R**.
 

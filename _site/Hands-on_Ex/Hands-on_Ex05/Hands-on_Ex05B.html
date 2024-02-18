@@ -319,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">February 6, 2024</p>
+      <p class="date-modified">February 11, 2024</p>
     </div>
   </div>
     
@@ -684,17 +684,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="reorder-a-corrgram" class="level3" data-number="7.6">
 <h3 data-number="7.6" class="anchored" data-anchor-id="reorder-a-corrgram"><span class="header-section-number">7.6</span> <strong>Reorder a corrgram</strong></h3>
-<p>Matrix reorder is very important for mining the hiden structure and pattern in a corrgram. By default, the order of attributes of a corrgram is sorted according to the correlation matrix (i.e.&nbsp;"original"). The default setting can be over-write by using the <em>order</em> argument of <em>corrplot()</em>. Currently, <strong>corrplot</strong> package support four sorting methods, they are:</p>
+<p>Matrix reorder is very important for mining the hiden structure and pattern in a corrgram. By default, the order of attributes of a corrgram is sorted according to the correlation matrix (i.e.&nbsp;“original”). The default setting can be over-write by using the <em>order</em> argument of <em>corrplot()</em>. Currently, <strong>corrplot</strong> package support four sorting methods, they are:</p>
 <ul>
-<li><p>"AOE" is for the angular order of the eigenvectors. See Michael Friendly (2002) for details.</p></li>
-<li><p>"FPC" for the first principal component order.</p></li>
-<li><p>"hclust" for hierarchical clustering order, and "hclust.method" for the agglomeration method to be used.</p>
+<li><p>“AOE” is for the angular order of the eigenvectors. See Michael Friendly (2002) for details.</p></li>
+<li><p>“FPC” for the first principal component order.</p></li>
+<li><p>“hclust” for hierarchical clustering order, and “hclust.method” for the agglomeration method to be used.</p>
 <ul>
-<li>"hclust.method" should be one of "ward", "single", "complete", "average", "mcquitty", "median" or "centroid".</li>
+<li>“hclust.method” should be one of “ward”, “single”, “complete”, “average”, “mcquitty”, “median” or “centroid”.</li>
 </ul></li>
-<li><p>"alphabet" for alphabetical order.</p></li>
+<li><p>“alphabet” for alphabetical order.</p></li>
 </ul>
-<p>"AOE", "FPC", "hclust", "alphabet". More algorithms can be found in <strong>seriation</strong> package.</p>
+<p>“AOE”, “FPC”, “hclust”, “alphabet”. More algorithms can be found in <strong>seriation</strong> package.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -733,8 +733,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="reference" class="level2" data-number="8">
 <h2 data-number="8" class="anchored" data-anchor-id="reference"><span class="header-section-number">8</span> <strong>Reference</strong></h2>
-<p>Michael Friendly (2002). "Corrgrams: Exploratory displays for correlation matrices". <em>The American Statistician</em>, 56, 316–324.</p>
-<p>D.J. Murdoch, E.D. Chow (1996). "A graphical display of large correlation matrices". <em>The American Statistician</em>, 50, 178–180.</p>
+<p>Michael Friendly (2002). “Corrgrams: Exploratory displays for correlation matrices”. <em>The American Statistician</em>, 56, 316–324.</p>
+<p>D.J. Murdoch, E.D. Chow (1996). “A graphical display of large correlation matrices”. <em>The American Statistician</em>, 50, 178–180.</p>
 <section id="r-packages" class="level3" data-number="8.1">
 <h3 data-number="8.1" class="anchored" data-anchor-id="r-packages"><span class="header-section-number">8.1</span> <strong>R packages</strong></h3>
 <ul>
@@ -1354,19 +1354,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb23-357"><a href="#cb23-357" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-358"><a href="#cb23-358" aria-hidden="true" tabindex="-1"></a><span class="fu">### **Reorder a corrgram**</span></span>
 <span id="cb23-359"><a href="#cb23-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-360"><a href="#cb23-360" aria-hidden="true" tabindex="-1"></a>Matrix reorder is very important for mining the hiden structure and pattern in a corrgram. By default, the order of attributes of a corrgram is sorted according to the correlation matrix (i.e.&nbsp;\"original\"). The default setting can be over-write by using the *order* argument of *corrplot()*. Currently, **corrplot** package support four sorting methods, they are:</span>
+<span id="cb23-360"><a href="#cb23-360" aria-hidden="true" tabindex="-1"></a>Matrix reorder is very important for mining the hiden structure and pattern in a corrgram. By default, the order of attributes of a corrgram is sorted according to the correlation matrix (i.e.&nbsp;"original"). The default setting can be over-write by using the *order* argument of *corrplot()*. Currently, **corrplot** package support four sorting methods, they are:</span>
 <span id="cb23-361"><a href="#cb23-361" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-362"><a href="#cb23-362" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>\"AOE\" is for the angular order of the eigenvectors. See Michael Friendly (2002) for details.</span>
+<span id="cb23-362"><a href="#cb23-362" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>"AOE" is for the angular order of the eigenvectors. See Michael Friendly (2002) for details.</span>
 <span id="cb23-363"><a href="#cb23-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-364"><a href="#cb23-364" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>\"FPC\" for the first principal component order.</span>
+<span id="cb23-364"><a href="#cb23-364" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>"FPC" for the first principal component order.</span>
 <span id="cb23-365"><a href="#cb23-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-366"><a href="#cb23-366" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>\"hclust\" for hierarchical clustering order, and \"hclust.method\" for the agglomeration method to be used.</span>
+<span id="cb23-366"><a href="#cb23-366" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>"hclust" for hierarchical clustering order, and "hclust.method" for the agglomeration method to be used.</span>
 <span id="cb23-367"><a href="#cb23-367" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-368"><a href="#cb23-368" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>\"hclust.method\" should be one of \"ward\", \"single\", \"complete\", \"average\", \"mcquitty\", \"median\" or \"centroid\".</span>
+<span id="cb23-368"><a href="#cb23-368" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>"hclust.method" should be one of "ward", "single", "complete", "average", "mcquitty", "median" or "centroid".</span>
 <span id="cb23-369"><a href="#cb23-369" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-370"><a href="#cb23-370" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>\"alphabet\" for alphabetical order.</span>
+<span id="cb23-370"><a href="#cb23-370" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>"alphabet" for alphabetical order.</span>
 <span id="cb23-371"><a href="#cb23-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-372"><a href="#cb23-372" aria-hidden="true" tabindex="-1"></a>\"AOE\", \"FPC\", \"hclust\", \"alphabet\". More algorithms can be found in **seriation** package.</span>
+<span id="cb23-372"><a href="#cb23-372" aria-hidden="true" tabindex="-1"></a>"AOE", "FPC", "hclust", "alphabet". More algorithms can be found in **seriation** package.</span>
 <span id="cb23-373"><a href="#cb23-373" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-376"><a href="#cb23-376" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb23-377"><a href="#cb23-377" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot.mixed</span>(wine.cor, </span>
@@ -1394,9 +1394,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb23-401"><a href="#cb23-401" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-402"><a href="#cb23-402" aria-hidden="true" tabindex="-1"></a><span class="fu">## **Reference**</span></span>
 <span id="cb23-403"><a href="#cb23-403" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-404"><a href="#cb23-404" aria-hidden="true" tabindex="-1"></a>Michael Friendly (2002). \"Corrgrams: Exploratory displays for correlation matrices\". *The American Statistician*, 56, 316--324.</span>
+<span id="cb23-404"><a href="#cb23-404" aria-hidden="true" tabindex="-1"></a>Michael Friendly (2002). "Corrgrams: Exploratory displays for correlation matrices". *The American Statistician*, 56, 316--324.</span>
 <span id="cb23-405"><a href="#cb23-405" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-406"><a href="#cb23-406" aria-hidden="true" tabindex="-1"></a>D.J. Murdoch, E.D. Chow (1996). \"A graphical display of large correlation matrices\". *The American Statistician*, 50, 178--180.</span>
+<span id="cb23-406"><a href="#cb23-406" aria-hidden="true" tabindex="-1"></a>D.J. Murdoch, E.D. Chow (1996). "A graphical display of large correlation matrices". *The American Statistician*, 50, 178--180.</span>
 <span id="cb23-407"><a href="#cb23-407" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-408"><a href="#cb23-408" aria-hidden="true" tabindex="-1"></a><span class="fu">### **R packages**</span></span>
 <span id="cb23-409"><a href="#cb23-409" aria-hidden="true" tabindex="-1"></a></span>

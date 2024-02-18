@@ -18,7 +18,7 @@ Heatmaps visualise data through variations in colouring. When applied to a tabul
 
 In this hands-on exercise, you will gain hands-on experience on using R to plot static and interactive heatmap for visualising and analysing multivariate data.
 
-##  **Installing and Launching R Packages**
+## **Installing and Launching R Packages**
 
 Before you get started, you are required:
 
@@ -150,7 +150,7 @@ Note that:
 
 ### **Data trasformation**
 
-When analysing multivariate data set, it is very common that the variables in the data sets includes values that reflect different types of measurement. In general, these variables\' values have their own range. In order to ensure that all the variables have comparable values, data transformation are commonly used before clustering.
+When analysing multivariate data set, it is very common that the variables in the data sets includes values that reflect different types of measurement. In general, these variables' values have their own range. In order to ensure that all the variables have comparable values, data transformation are commonly used before clustering.
 
 Three main data transformation methods are supported by *heatmaply()*, namely: scale, normalise and percentilse.
 
@@ -173,7 +173,7 @@ heatmaply(wh_matrix[, -c(1, 2, 4, 5)],
 
 -   When variables in the data comes from possibly different (and non-normal) distributions, the normalize function can be used to bring data to the 0 to 1 scale by subtracting the minimum and dividing by the maximum of all observations.
 
--   This preserves the shape of each variable\'s distribution while making them easily comparable on the same \"scale\".
+-   This preserves the shape of each variable's distribution while making them easily comparable on the same "scale".
 
 Different from Scaling, the normalise method is performed on the input data set i.e. wh_matrix as shown in the code chunk below.
 
@@ -199,19 +199,19 @@ heatmaply(percentize(wh_matrix[, -c(1, 2, 4, 5)]))
 
 **heatmaply** supports a variety of hierarchical clustering algorithm. The main arguments provided are:
 
--   *distfun*: function used to compute the distance (dissimilarity) between both rows and columns. Defaults to dist. The options \"pearson\", \"spearman\" and \"kendall\" can be used to use correlation-based clustering, which uses as.dist(1 - cor(t(x))) as the distance metric (using the specified correlation method).
+-   *distfun*: function used to compute the distance (dissimilarity) between both rows and columns. Defaults to dist. The options "pearson", "spearman" and "kendall" can be used to use correlation-based clustering, which uses as.dist(1 - cor(t(x))) as the distance metric (using the specified correlation method).
 
 -   *hclustfun*: function used to compute the hierarchical clustering when *Rowv* or *Colv* are not dendrograms. Defaults to *hclust*.
 
--   *dist_method* default is NULL, which results in \"euclidean\" to be used. It can accept alternative character strings indicating the method to be passed to distfun. By default *distfun* is \"dist\"\" hence this can be one of \"euclidean\", \"maximum\", \"manhattan\", \"canberra\", \"binary\" or \"minkowski\".
+-   *dist_method* default is NULL, which results in "euclidean" to be used. It can accept alternative character strings indicating the method to be passed to distfun. By default *distfun* is "dist"" hence this can be one of "euclidean", "maximum", "manhattan", "canberra", "binary" or "minkowski".
 
--   *hclust_method* default is NULL, which results in \"complete\" method to be used. It can accept alternative character strings indicating the method to be passed to *hclustfun*. By default hclustfun is hclust hence this can be one of \"ward.D\", \"ward.D2\", \"single\", \"complete\", \"average\" (= UPGMA), \"mcquitty\" (= WPGMA), \"median\" (= WPGMC) or \"centroid\" (= UPGMC).
+-   *hclust_method* default is NULL, which results in "complete" method to be used. It can accept alternative character strings indicating the method to be passed to *hclustfun*. By default hclustfun is hclust hence this can be one of "ward.D", "ward.D2", "single", "complete", "average" (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) or "centroid" (= UPGMC).
 
 In general, a clustering model can be calibrated either manually or statistically.
 
 ### **Manual approach**
 
-In the code chunk below, the heatmap is plotted by using hierachical clustering algorithm with \"Euclidean distance\" and \"ward.D\" method.
+In the code chunk below, the heatmap is plotted by using hierachical clustering algorithm with "Euclidean distance" and "ward.D" method.
 
 ```{r}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
@@ -230,7 +230,7 @@ wh_d <- dist(normalize(wh_matrix[, -c(1, 2, 4, 5)]), method = "euclidean")
 dend_expend(wh_d)[[3]]
 ```
 
-The output table shows that \"average\" method should be used because it gave the high optimum value.
+The output table shows that "average" method should be used because it gave the high optimum value.
 
 Next, *find_k()* is used to determine the optimal number of cluster.
 
@@ -253,7 +253,7 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
 
 ### **Seriation**
 
-One of the problems with hierarchical clustering is that it doesn\'t actually place the rows in a definite order, it merely constrains the space of possible orderings. Take three items A, B and C. If you ignore reflections, there are three possible orderings: ABC, ACB, BAC. If clustering them gives you ((A+B)+C) as a tree, you know that C can\'t end up between A and B, but it doesn\'t tell you which way to flip the A+B cluster. It doesn\'t tell you if the ABC ordering will lead to a clearer-looking heatmap than the BAC ordering.
+One of the problems with hierarchical clustering is that it doesn't actually place the rows in a definite order, it merely constrains the space of possible orderings. Take three items A, B and C. If you ignore reflections, there are three possible orderings: ABC, ACB, BAC. If clustering them gives you ((A+B)+C) as a tree, you know that C can't end up between A and B, but it doesn't tell you which way to flip the A+B cluster. It doesn't tell you if the ABC ordering will lead to a clearer-looking heatmap than the BAC ordering.
 
 **heatmaply** uses the seriation package to find an optimal ordering of rows and columns. Optimal means to optimize the Hamiltonian path length that is restricted by the dendrogram structure. This, in other words, means to rotate the branches so that the sum of distances between each adjacent leaf (label) will be minimized. This is related to a restricted version of the travelling salesman problem.
 
@@ -264,21 +264,21 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           seriate = "OLO")
 ```
 
-The default options is \"OLO\" (Optimal leaf ordering) which optimizes the above criterion (in O(n\^4)). Another option is \"GW\" (Gruvaeus and Wainer) which aims for the same goal but uses a potentially faster heuristic.
+The default options is "OLO" (Optimal leaf ordering) which optimizes the above criterion (in O(n\^4)). Another option is "GW" (Gruvaeus and Wainer) which aims for the same goal but uses a potentially faster heuristic.
 
 ```{r}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           seriate = "GW")
 ```
 
-The option \"mean\" gives the output we would get by default from heatmap functions in other packages such as gplots::heatmap.2.
+The option "mean" gives the output we would get by default from heatmap functions in other packages such as gplots::heatmap.2.
 
 ```{r}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           seriate = "mean")
 ```
 
-The option \"none\" gives us the dendrograms without any rotation that is based on the data matrix.
+The option "none" gives us the dendrograms without any rotation that is based on the data matrix.
 
 ```{r}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
@@ -340,7 +340,6 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
 ```
 
 ::: {.callout-tip titile="What I did..."}
-
 1.  **Custom Color Palette**: Created a custom color gradient using **`colorRampPalette`** and applied it to the heatmap using the **`col`** parameter. This customization provides a more personalized and visually appealing color scheme.
 
 2.  **Font Size Adjustment**: Adjusted the font size of the main title (**`cex.main`**) and axis labels (**`cex.lab`**). This enhances readability and makes the visual elements more proportionate.

@@ -317,19 +317,19 @@ corrplot(wine.cor,
 
 ### **Reorder a corrgram**
 
-Matrix reorder is very important for mining the hiden structure and pattern in a corrgram. By default, the order of attributes of a corrgram is sorted according to the correlation matrix (i.e. \"original\"). The default setting can be over-write by using the *order* argument of *corrplot()*. Currently, **corrplot** package support four sorting methods, they are:
+Matrix reorder is very important for mining the hiden structure and pattern in a corrgram. By default, the order of attributes of a corrgram is sorted according to the correlation matrix (i.e. "original"). The default setting can be over-write by using the *order* argument of *corrplot()*. Currently, **corrplot** package support four sorting methods, they are:
 
--   \"AOE\" is for the angular order of the eigenvectors. See Michael Friendly (2002) for details.
+-   "AOE" is for the angular order of the eigenvectors. See Michael Friendly (2002) for details.
 
--   \"FPC\" for the first principal component order.
+-   "FPC" for the first principal component order.
 
--   \"hclust\" for hierarchical clustering order, and \"hclust.method\" for the agglomeration method to be used.
+-   "hclust" for hierarchical clustering order, and "hclust.method" for the agglomeration method to be used.
 
-    -   \"hclust.method\" should be one of \"ward\", \"single\", \"complete\", \"average\", \"mcquitty\", \"median\" or \"centroid\".
+    -   "hclust.method" should be one of "ward", "single", "complete", "average", "mcquitty", "median" or "centroid".
 
--   \"alphabet\" for alphabetical order.
+-   "alphabet" for alphabetical order.
 
-\"AOE\", \"FPC\", \"hclust\", \"alphabet\". More algorithms can be found in **seriation** package.
+"AOE", "FPC", "hclust", "alphabet". More algorithms can be found in **seriation** package.
 
 ```{r}
 corrplot.mixed(wine.cor, 
@@ -357,9 +357,9 @@ corrplot(wine.cor,
 
 ## **Reference**
 
-Michael Friendly (2002). \"Corrgrams: Exploratory displays for correlation matrices\". *The American Statistician*, 56, 316--324.
+Michael Friendly (2002). "Corrgrams: Exploratory displays for correlation matrices". *The American Statistician*, 56, 316--324.
 
-D.J. Murdoch, E.D. Chow (1996). \"A graphical display of large correlation matrices\". *The American Statistician*, 50, 178--180.
+D.J. Murdoch, E.D. Chow (1996). "A graphical display of large correlation matrices". *The American Statistician*, 50, 178--180.
 
 ### **R packages**
 

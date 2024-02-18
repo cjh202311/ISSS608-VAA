@@ -14,7 +14,7 @@ format:
 
 ## **Overview**
 
-Parallel coordinates plot is a data visualisation specially designed for visualising and analysing multivariate, numerical data. It is ideal for comparing multiple variables together and seeing the relationships between them. For example, the variables contribute to Happiness Index. Parallel coordinates was invented by [Alfred Inselberg](http://www.math.tau.ac.il/~aiisreal/) in the 1970s as a way to visualize high-dimensional data. This data visualisation technique is more often found in academic and scientific communities than in business and consumer data visualizations. As pointed out by [Stephen Few](https://www.perceptualedge.com/articles/b-eye/parallel_coordinates.pdf)(2006), \"This certainly isn\'t a chart that you would present to the board of directors or place on your Web site for the general public. In fact, the strength of parallel coordinates isn\'t in their ability to communicate some truth in the data to others, but rather in their ability to bring meaningful multivariate patterns and comparisons to light when used interactively for analysis.\" For example, parallel coordinates plot can be used to characterise clusters detected during customer segmentation.
+Parallel coordinates plot is a data visualisation specially designed for visualising and analysing multivariate, numerical data. It is ideal for comparing multiple variables together and seeing the relationships between them. For example, the variables contribute to Happiness Index. Parallel coordinates was invented by [Alfred Inselberg](http://www.math.tau.ac.il/~aiisreal/) in the 1970s as a way to visualize high-dimensional data. This data visualisation technique is more often found in academic and scientific communities than in business and consumer data visualizations. As pointed out by [Stephen Few](https://www.perceptualedge.com/articles/b-eye/parallel_coordinates.pdf)(2006), "This certainly isn't a chart that you would present to the board of directors or place on your Web site for the general public. In fact, the strength of parallel coordinates isn't in their ability to communicate some truth in the data to others, but rather in their ability to bring meaningful multivariate patterns and comparisons to light when used interactively for analysis." For example, parallel coordinates plot can be used to characterise clusters detected during customer segmentation.
 
 By the end of this hands-on exercise, you will gain hands-on experience on:
 
@@ -125,7 +125,7 @@ Thing to learn from the code chunk above:
 
 ### **Adjusting the rotated x-axis text label**
 
-Rotating x-axis text labels to 30 degrees makes the label overlap with the plot and we can avoid this by adjusting the text location using `hjust` argument to theme\'s text element with `element_text()`. We use `axis.text.x` as we want to change the look of x-axis text.
+Rotating x-axis text labels to 30 degrees makes the label overlap with the plot and we can avoid this by adjusting the text location using `hjust` argument to theme's text element with `element_text()`. We use `axis.text.x` as we want to change the look of x-axis text.
 
 ```{r}
 ggparcoord(data = wh, 
@@ -141,7 +141,7 @@ ggparcoord(data = wh,
 
 ## **Plotting Interactive Parallel Coordinates Plot: parallelPlot methods**
 
-[**parallelPlot**](https://cran.r-project.org/web/packages/parallelPlot/) is an R package specially designed to plot a parallel coordinates plot by using \'htmlwidgets\' package and [d3.js](https://d3js.org/). In this section, you will learn how to use functions provided in parallelPlot package to build interactive parallel coordinates plot.
+[**parallelPlot**](https://cran.r-project.org/web/packages/parallelPlot/) is an R package specially designed to plot a parallel coordinates plot by using 'htmlwidgets' package and [d3.js](https://d3js.org/). In this section, you will learn how to use functions provided in parallelPlot package to build interactive parallel coordinates plot.
 
 ### **The basic plot**
 
