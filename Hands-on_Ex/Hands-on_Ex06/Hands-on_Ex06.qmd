@@ -7,7 +7,6 @@ toc: true
 number-sections: true
 format: 
   html: 
-    code-fold: true
     code-tools: true
     warning: false
 ---
@@ -31,7 +30,7 @@ By the end of this hands-on exercise you will be able create the followings data
 Write a code chunk to check, install and launch the following R packages: scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table and tidyverse.
 
 ```{r}
-pacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table, CGPfunctions, ggHoriPlot, tidyverse)
+pacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table, CGPfunctions, ggHoriPlot, tidyverse,plotly)
 ```
 
 ## **Plotting Calendar Heatmap**
@@ -119,14 +118,19 @@ wkday_levels <- c('Saturday', 'Friday',
                   'Tuesday', 'Monday', 
                   'Sunday')
 
-attacks <- attacks %>%
-  group_by(tz) %>%
-  do(make_hr_wkday(.$timestamp, 
-                   .$source_country, 
-                   .$tz)) %>% 
-  ungroup() %>% 
-  mutate(wkday = factor(wkday, levels = wkday_levels),
-         hour = factor(hour, levels = 0:23)) 
+processed_attacks <- attacks %>%
+  do(make_hr_wkday(.$timestamp, .$source_country, .$tz))
+processed_attacks <- bind_cols(tz = attacks$tz, processed_attacks) %>%
+  mutate(wkday = factor(wkday),
+         hour = factor(hour)) %>%
+  arrange(tz)
+
+# rename processed_attacks with attacks
+assign("attacks", processed_attacks)
+
+#Check the data frame
+kable(head(attacks))
+
 ```
 
 ::: callout-note
@@ -243,7 +247,7 @@ top4_attacks <- attacks %>%
 Step 3: Plotting the Multiple Calender Heatmap by using ggplot2 package.
 
 ```{r}
-#| eval: false
+
 ggplot(top4_attacks, 
        aes(hour, 
            wkday, 
@@ -264,3 +268,188 @@ ggplot(top4_attacks,
         legend.title = element_text(size = 8),
         legend.text = element_text(size = 6) )
 ```
+
+### **Plotting Multiple Calendar Heatmaps**
+
+Step 1: Deriving attack by country object
+
+In order to identify the top 4 countries with the highest number of attacks, you are required to do the followings:
+
+-   count the number of attacks by country,
+
+-   calculate the percent of attackes by country, and
+
+-   save the results in a tibble data frame.
+
+```{r}
+attacks_by_country <- count(
+  attacks, source_country) %>%
+  mutate(percent = percent(n/sum(n))) %>%
+  arrange(desc(n))
+```
+
+Step 2: Preparing the tidy data frame
+
+In this step, you are required to extract the attack records of the top 4 countries from *attacks* data frame and save the data in a new tibble data frame (i.e. *top4_attacks*).
+
+```{r}
+top4 <- attacks_by_country$source_country[1:4]
+top4_attacks <- attacks %>%
+  filter(source_country %in% top4) %>%
+  count(source_country, wkday, hour) %>%
+  ungroup() %>%
+  mutate(source_country = factor(
+    source_country, levels = top4)) %>%
+  na.omit()
+```
+
+### **Plotting Multiple Calendar Heatmaps**
+
+Step 3: Plotting the Multiple Calender Heatmap by using ggplot2 package.
+
+```{r}
+ggplot(top4_attacks, 
+       aes(hour, 
+           wkday, 
+           fill = n)) + 
+  geom_tile(color = "white", 
+          size = 0.1) + 
+  theme_tufte(base_family = "Helvetica") + 
+  coord_equal() +
+  scale_fill_gradient(name = "# of attacks",
+                    low = "sky blue", 
+                    high = "dark blue") +
+  facet_wrap(~source_country, ncol = 2) +
+  labs(x = NULL, y = NULL, 
+     title = "Attacks on top 4 countries by weekday and time of day") +
+  theme(axis.ticks = element_blank(),
+        axis.text.x = element_text(size = 7),
+        plot.title = element_text(hjust = 0.5),
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6) )
+```
+
+## **Plotting Cycle Plot**
+
+In this section, you will learn how to plot a cycle plot showing the time-series patterns and trend of visitor arrivals from Vietnam programmatically by using ggplot2 functions.
+
+### **Step 1: Data Import**
+
+For the purpose of this hands-on exercise, *arrivals_by_air.xlsx* will be used.
+
+The code chunk below imports *arrivals_by_air.xlsx* by using `read_excel()` of **readxl** package and save it as a tibble data frame called *air*.
+
+```{r}
+air <- read_excel("data/arrivals_by_air.xlsx")
+```
+
+### **Step 2: Deriving month and year fields**
+
+Next, two new fields called *month* and *year* are derived from *Month-Year* field.
+
+```{r}
+air$month <- factor(month(air$`Month-Year`), 
+                    levels=1:12, 
+                    labels=month.abb, 
+                    ordered=TRUE) 
+air$year <- year(ymd(air$`Month-Year`))
+```
+
+### **Step 3: Extracting the target country**
+
+Next, the code chunk below is use to extract data for the target country (i.e. Vietnam)
+
+```{r}
+Vietnam <- air %>% 
+  select(`Vietnam`, 
+         month, 
+         year) %>%
+  filter(year >= 2010)
+```
+
+### **Step 4: Computing year average arrivals by month**
+
+The code chunk below uses `group_by()` and `summarise()` of **dplyr** to compute year average arrivals by month.
+
+```{r}
+hline.data <- Vietnam %>% 
+  group_by(month) %>%
+  summarise(avgvalue = mean(`Vietnam`))
+```
+
+### **Srep 6: Plotting the cycle plot**
+
+The code chunk below is used to plot the cycle plot as shown in Slide 12/23.
+
+```{r}
+gg<- ggplot() + 
+  geom_line(data=Vietnam,
+            aes(x=year, 
+                y=`Vietnam`, 
+                group=month), 
+            colour="#3459e6") +
+  geom_hline(aes(yintercept=avgvalue), 
+             data=hline.data, 
+             linetype=6, 
+             colour="lightgreen", 
+             size=0.5) + 
+  facet_grid(~month) +
+  labs(axis.text.x = element_blank(),
+       title = "Visitor arrivals from Vietnam by air, Jan 2010-Dec 2019") +
+  xlab("") +
+  ylab("No. of Visitors") +
+  theme_tufte(base_family = "Helvetica")+
+  theme(axis.text.x = element_blank())
+interactive_plot <- ggplotly(gg)
+
+# Show the interactive plot
+interactive_plot
+```
+
+::: {.callout-tip title="What I did"}
+1.  **Color Adjustments:**
+
+    -   I changed the line color in **`geom_line`** from "black" to "#3459e6" (a shade of blue).
+
+    -   I modified the hline color in **`geom_hline`** from "red" to "lightgreen".
+
+2.  **Axis Text Removal:**
+
+    -   I added **`theme(axis.text.x = element_blank())`** to remove x-axis text labels.
+
+3.  **Interactive Version:**
+
+    -   I converted the static ggplot (**`gg`**) to an interactive plot using **`ggplotly()`** and stored it in **`interactive_plot`**.
+:::
+
+## **Plotting Slopegraph**
+
+In this section you will learn how to plot a [slopegraph](https://www.storytellingwithdata.com/blog/2020/7/27/what-is-a-slopegraph) by using R.
+
+Before getting start, make sure that **CGPfunctions** has been installed and loaded onto R environment. Then, refer to [Using newggslopegraph](https://cran.r-project.org/web/packages/CGPfunctions/vignettes/Using-newggslopegraph.html) to learn more about the function. Lastly, read more about `newggslopegraph()` and its arguments by referring to this [link](https://www.rdocumentation.org/packages/CGPfunctions/versions/0.6.3/topics/newggslopegraph).
+
+### **Step 1: Data Import**
+
+Import the rice data set into R environment by using the code chunk below.
+
+```{r}
+rice <- read_csv("data/rice.csv")
+```
+
+### **Step 2: Plotting the slopegraph**
+
+Next, code chunk below will be used to plot a basic slopegraph as shown below.
+
+```{r}
+rice %>% 
+  mutate(Year = factor(Year)) %>%
+  filter(Year %in% c(1961, 1980)) %>%
+  newggslopegraph(Year, Yield, Country,
+                Title = "Rice Yield of Top 11 Asian Counties",
+                SubTitle = "1961-1980",
+                Caption = "Prepared by: Dr. Kam Tin Seong")
+```
+
+::: {.callout-tip title="What I can learn"}
+For effective data visualisation design, `factor()` is used convert the value type of *Year* field from numeric to factor.
+:::
