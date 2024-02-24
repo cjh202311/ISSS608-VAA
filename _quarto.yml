@@ -36,12 +36,21 @@ website:
             href: "Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05E.html"
           - text: "Hands-on Exercise 6"
             href: "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html"
+          - text: "Hands-on Exercise 7A"
+            href: "Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07A.html"
+          - text: "Hands-on Exercise 7B"
+            href: "Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07B.html"
+          - text: "Hands-on Exercise 7C"
+            href: "Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07C.html"
+          
             
       - icon: book-half
         text: "In-class Exercise"
         menu: 
           - text: "In-class Exercise 1"
             href: "In-class_Ex/In-class_Ex01/In-class_Ex01.html"
+          - text: "In-class Exercise 6"
+            href: "In-class_Ex/In-class_Ex06/In-class_Ex6.html"
             
       - icon: person-fill
         text: "Take-home Exercise"
