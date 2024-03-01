@@ -14,9 +14,9 @@ format:
 
 # **Overview**
 
-Proportional symbol maps (also known as graduate symbol maps) are a class of maps that use the visual variable of size to represent differences in the magnitude of a discrete, abruptly changing phenomenon, e.g. counts of people. Like choropleth maps, you can create classed or unclassed versions of these maps. The classed ones are known as range-graded or graduated symbols, and the unclassed are called proportional symbols, where the area of the symbols are proportional to the values of the attribute being mapped. In this hands-on exercise, you will learn how to create a proportional symbol map showing the number of wins by Singapore Pools\' outlets using an R package called **tmap**.
+Proportional symbol maps (also known as graduate symbol maps) are a class of maps that use the visual variable of size to represent differences in the magnitude of a discrete, abruptly changing phenomenon, e.g. counts of people. Like choropleth maps, you can create classed or unclassed versions of these maps. The classed ones are known as range-graded or graduated symbols, and the unclassed are called proportional symbols, where the area of the symbols are proportional to the values of the attribute being mapped. In this hands-on exercise, you will learn how to create a proportional symbol map showing the number of wins by Singapore Pools' outlets using an R package called **tmap**.
 
-##  **Learning outcome**
+## **Learning outcome**
 
 By the end of this hands-on exercise, you will acquire the following skills by using appropriate R packages:
 
@@ -72,7 +72,7 @@ Things to learn from the arguments above:
 
 -   The *coords* argument requires you to provide the column name of the x-coordinates first then followed by the column name of the y-coordinates.
 
--   The *crs* argument required you to provide the coordinates system in epsg format. [EPSG: 3414](https://epsg.io/3414) is Singapore SVY21 Projected Coordinate System. You can search for other country\'s epsg code by refering to [epsg.io](https://epsg.io/).
+-   The *crs* argument required you to provide the coordinates system in epsg format. [EPSG: 3414](https://epsg.io/3414) is Singapore SVY21 Projected Coordinate System. You can search for other country's epsg code by refering to [epsg.io](https://epsg.io/).
 
 Figure below shows the data table of *sgpools_sf*. Notice that a new column called geometry has been added into the data frame.
 
@@ -84,7 +84,7 @@ I can display the basic information of the newly created sgpools_sf by using the
 list(sgpools_sf)
 ```
 
-The output shows that sgppols_sf is in point feature class. It\'s epsg ID is 3414. The bbox provides information of the extend of the geospatial data.
+The output shows that sgppols_sf is in point feature class. It's epsg ID is 3414. The bbox provides information of the extend of the geospatial data.
 
 # **Drawing Proportional Symbol Map**
 
@@ -134,13 +134,13 @@ tm_bubbles(col = "OUTLET TYPE",
 
 ## **I have a twin brothers :)**
 
-An impressive and little-know feature of **tmap**\'s view mode is that it also works with faceted plots. The argument *sync* in *tm_facets()* can be used in this case to produce multiple maps with synchronised zoom and pan settings.
+An impressive and little-know feature of **tmap**'s view mode is that it also works with faceted plots. The argument *sync* in *tm_facets()* can be used in this case to produce multiple maps with synchronised zoom and pan settings.
 
 ```{r}
 tm_shape(sgpools_sf) +   tm_bubbles(col = "OUTLET TYPE",            size = "Gp1Gp2 Winnings",           border.col = "black",           border.lwd = 1) +   tm_facets(by= "OUTLET TYPE",             nrow = 1,             sync = TRUE)
 ```
 
-Before you end the session, it is wiser to switch **tmap**\'s Viewer back to plot mode by using the code chunk below.
+Before you end the session, it is wiser to switch **tmap**'s Viewer back to plot mode by using the code chunk below.
 
 ```{r}
 tmap_mode("plot")
@@ -176,4 +176,4 @@ tmap_mode("plot")
 
 -   [Tidy data](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)
 
--   [tidyr: Easily Tidy Data with \'spread()\' and \'gather()\' Functions](https://cran.r-project.org/web/packages/tidyr/tidyr.pdf)
+-   [tidyr: Easily Tidy Data with 'spread()' and 'gather()' Functions](https://cran.r-project.org/web/packages/tidyr/tidyr.pdf)

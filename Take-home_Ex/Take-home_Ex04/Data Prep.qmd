@@ -1,0 +1,210 @@
+---
+title: "Data Prep"
+---
+
+```{r}
+pacman::p_load(tidyverse)
+```
+
+Load files from data folder
+
+```{r}
+ppi <- read_csv('data/PPI_private_housing.csv') %>% 
+  setNames(c('Date', 'PR_All', 'PR_Landed', 'PR_NL_ALL', 'PR_NL_CCR', 'PR_NL_RCR', 'PR_NL_OCR')) %>%
+  mutate(Date = as.Date(Date, format = '%d/%m/%Y')) %>% 
+  mutate(Month = month(Date)) %>% 
+  mutate(Date = year(Date)) %>% 
+  rename(Year = Date) %>% 
+  mutate(Year = as.factor(Year))
+
+material_price <- read_csv('data/Construction Materials prices.csv') %>% 
+  setNames(c('Date', 'Cement', 'SteelBar', 'Granite', 'ConcretingSand', 'ReadyMixConcrete')) %>% 
+  mutate(Date = as.Date(Date, format = '%d/%m/%Y')) %>% 
+  mutate(Year = year(Date)) %>% 
+  mutate(Month = month(Date)) %>% 
+  mutate(Year = as.factor(Year)) %>% 
+  mutate(Month = as.factor(Month))
+
+sti <- read_csv('data/Index FTSE Strait Times.csv') %>% 
+  setNames(c('Date', 'Index')) %>% 
+  mutate(Date = as.Date(Date, format = '%d/%m/%Y')) %>% 
+  mutate(Year = year(Date)) %>% 
+  mutate(Month = month(Date)) %>% 
+  mutate(Day = day(Date)) %>% 
+  mutate(Year = as.factor(Year)) %>% 
+  mutate(Month = as.factor(Month))
+
+tbillbond <- read_csv('data/Treasury_Bill_Bond_ rates.csv') %>% 
+  setNames(c('Date', 'Bill1Yr', 'Bond2Yr', 'Bond5Yr', 'Bond10Yr', 'Bond15Yr', 'Bond20Yr','Bond30Yr')) %>% 
+  mutate(Date = as.Date(Date, format = '%d/%m/%Y')) %>% 
+  mutate(Year = year(Date)) %>% 
+  mutate(Month = month(Date)) %>% 
+  mutate(Day = day(Date)) %>% 
+  mutate(Year = as.factor(Year)) %>% 
+  mutate(Month = as.factor(Month)) %>% 
+  select(-Bond15Yr, -Bond20Yr, -Bond30Yr)
+
+sora <- read_csv('data/Singapore Overnight Rate Average SORA Daily.csv') %>% 
+  setNames(c('Date', 'Rate')) %>% 
+  mutate(Date = as.Date(Date, format = '%d/%m/%Y')) %>% 
+  mutate(Year = year(Date)) %>% 
+  mutate(Month = month(Date)) %>% 
+  mutate(Day = day(Date)) %>% 
+  mutate(Year = as.factor(Year)) %>% 
+  mutate(Month = as.factor(Month))
+```
+
+Data Wrangling - to compute change (for SORA and Bond/Bill rates) and percentage change (for the various indices and prices)
+
+```{r}
+# PPI - percentage change computations
+ppi_quarter <- ppi %>% 
+  mutate(`%Change_PR_All` = (PR_All - lag(PR_All))/lag(PR_All)*100) %>% 
+  mutate(`%Change_PR_Landed` = (PR_Landed - lag(PR_Landed))/lag(PR_Landed)*100) %>% 
+  mutate(`%Change_PR_NL_ALL` = (PR_NL_ALL - lag(PR_NL_ALL))/lag(PR_NL_ALL)*100) %>% 
+  mutate(`%Change_PR_NL_CCR` = (PR_NL_CCR - lag(PR_NL_CCR))/lag(PR_NL_CCR)*100) %>% 
+  mutate(`%Change_PR_NL_RCR` = (PR_NL_RCR - lag(PR_NL_RCR))/lag(PR_NL_RCR)*100) %>% 
+  mutate(`%Change_PR_NL_OCR` = (PR_NL_OCR - lag(PR_NL_OCR))/lag(PR_NL_OCR)*100) %>% 
+  mutate(Quarter = case_when(
+    Month == 3 ~ '1Q',
+    Month == 6 ~ '2Q',
+    Month == 9 ~ '3Q',
+    Month == 12 ~ '4Q',
+  )) %>% 
+  select(-Month) %>% 
+  select('Year','Quarter',everything())
+```
+
+```{r}
+# material price_month - percentage change computations
+material_price_month <- material_price %>% 
+  mutate(`%Change_Cement` = (Cement - lag(Cement))/lag(Cement)*100) %>% 
+  mutate(`%Change_SteelBar` = (SteelBar - lag(SteelBar))/lag(SteelBar)*100) %>%
+  mutate(`%Change_Granite` = (Granite - lag(Granite))/lag(Granite)*100) %>%
+  mutate(`%Change_ConcretingSand` = (ConcretingSand - lag(ConcretingSand))/lag(ConcretingSand)*100) %>%
+  mutate(`%Change_ReadyMixConcrete` = (ReadyMixConcrete - lag(ReadyMixConcrete))/lag(ReadyMixConcrete)*100) %>% 
+  select(-Date) %>% 
+  select(Year, Month, everything())
+
+# material price_quarter - percentage change computations
+material_price_quarter <- material_price %>% 
+  filter(Month==3 | Month ==6 | Month == 9 | Month == 12) %>% 
+  mutate(`%Change_Cement` = (Cement - lag(Cement))/lag(Cement)*100) %>% 
+  mutate(`%Change_SteelBar` = (SteelBar - lag(SteelBar))/lag(SteelBar)*100) %>%
+  mutate(`%Change_Granite` = (Granite - lag(Granite))/lag(Granite)*100) %>%
+  mutate(`%Change_ConcretingSand` = (ConcretingSand - lag(ConcretingSand))/lag(ConcretingSand)*100) %>%
+  mutate(`%Change_ReadyMixConcrete` = (ReadyMixConcrete - lag(ReadyMixConcrete))/lag(ReadyMixConcrete)*100) %>% 
+    mutate(Quarter = case_when(
+    Month == 3 ~ '1Q',
+    Month == 6 ~ '2Q',
+    Month == 9 ~ '3Q',
+    Month == 12 ~ '4Q',
+  )) %>%
+  select(-Date, -Month) %>% 
+  select(Year, Quarter, everything())
+```
+
+```{r}
+# sti_month - percentage change computations
+sti_month <- sti %>% 
+  group_by(Year, Month) %>% 
+  slice_min(Day) %>%
+  ungroup() %>% 
+  mutate(`%Change_Index` = (Index - lag(Index))/lag(Index)*100) %>% 
+  select(-Date, -Day) %>% 
+  select(Year, Month, everything())
+  
+# sti_quarter - percentage change computations -> Quarter index values are the index values on 1st Day of March, Jun, Sep, Dec respectively
+sti_quarter <- sti %>% 
+  filter(Month==3 | Month ==6 | Month == 9 | Month == 12) %>% 
+  mutate(Quarter = case_when(
+    (Month == 3) ~ "1Q",
+    (Month == 6) ~ "2Q",
+    (Month == 9) ~ "3Q",
+    (Month == 12) ~ "4Q"
+  )) %>% 
+  group_by(Year, Quarter) %>% 
+  slice_min(Date) %>%         
+  ungroup() %>%
+  mutate(`%Change_Index` = (Index - lag(Index))/lag(Index)*100) %>% 
+  select(-Date, -Month, -Day) %>% 
+  select(Year, Quarter, everything())
+```
+
+```{r}
+# tbillbond_month - percentage change computations
+tbillbond_month <- tbillbond %>% 
+  group_by(Year, Month) %>% 
+  slice_min(Day) %>%
+  ungroup() %>% 
+  mutate(`Change_Bill1Yr` = Bill1Yr - lag(Bill1Yr)) %>% 
+  mutate(`Change_Bond2Yr` = Bond2Yr - lag(Bond2Yr)) %>% 
+  mutate(`Change_Bond5Yr` = Bond5Yr - lag(Bond5Yr)) %>% 
+  mutate(`Change_Bond10Yr` = Bond10Yr - lag(Bond10Yr)) %>% 
+  select(-Date, -Day) %>% 
+  select(Year, Month, everything())
+
+# tbillbond_quarter - percentage change computations
+tbillbond_quarter <- tbillbond %>% 
+  filter(Month==3 | Month ==6 | Month == 9 | Month == 12) %>% 
+  mutate(Quarter = case_when(
+    (Month == 3) ~ "1Q",
+    (Month == 6) ~ "2Q",
+    (Month == 9) ~ "3Q",
+    (Month == 12) ~ "4Q"
+  )) %>% 
+  group_by(Year, Quarter) %>% 
+  slice_min(Day) %>%
+  ungroup() %>%
+  mutate(`Change_Bill1Yr` = Bill1Yr - lag(Bill1Yr)) %>% 
+  mutate(`Change_Bond2Yr` = Bond2Yr - lag(Bond2Yr)) %>% 
+  mutate(`Change_Bond5Yr` = Bond5Yr - lag(Bond5Yr)) %>% 
+  mutate(`Change_Bond10Yr` = Bond10Yr - lag(Bond10Yr)) %>% 
+  select(-Date, -Month, -Day) %>% 
+  select(Year, Quarter, everything())
+```
+
+```{r}
+# sora_month - percentage change computations
+sora_month <- sora %>% 
+  group_by(Year, Month) %>% 
+  slice_min(Day) %>%
+  ungroup() %>% 
+  mutate(`Change_Rate` = Rate - lag(Rate)) %>% 
+  select(-Date, -Day) %>% 
+  select(Year, Month, everything())
+
+# sora_quarter - percentage change computations
+sora_quarter <- sora %>% 
+  filter(Month==3 | Month ==6 | Month == 9 | Month == 12) %>% 
+  mutate(Quarter = case_when(
+    (Month == 3) ~ "1Q",
+    (Month == 6) ~ "2Q",
+    (Month == 9) ~ "3Q",
+    (Month == 12) ~ "4Q"
+  )) %>%
+  group_by(Year, Quarter) %>% 
+  slice_min(Day) %>%
+  ungroup() %>%
+  mutate(`Change_Rate` = Rate - lag(Rate)) %>% 
+  select(-Date, -Month, -Day) %>% 
+  select(Year, Quarter, everything())
+```
+
+Joining tables
+
+```{r}
+# put all monthly data into 1 dataset
+data_by_month <- material_price_month %>% 
+  inner_join(sti_month, by = c("Year", "Month")) %>% 
+  inner_join(tbillbond_month, by = c("Year", "Month")) %>% 
+  inner_join(sora_month, by = c("Year", "Month"))
+
+# put all quarter data into 1 dataset
+data_by_quarter <- ppi_quarter %>% 
+  inner_join(material_price_quarter, by = c("Year", "Quarter")) %>% 
+  inner_join(sti_quarter, by = c("Year", "Quarter")) %>% 
+  inner_join(tbillbond_quarter, by = c("Year", "Quarter")) %>% 
+  inner_join(sora_quarter, by = c("Year", "Quarter")) %>% 
+  mutate(QuarterLabel = paste0(Quarter, as.character(Year)))
+```
