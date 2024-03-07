@@ -286,14 +286,14 @@ get.var <- function(vname,df) {
 
 #### Test drive the newly created function
 
-Let\'s test the newly created function
+Let's test the newly created function
 
 ```{r}
 var <- get.var("wp_nonfunctional", NGA_wp) 
 boxbreaks(var)
 ```
 
-####  Boxmap function
+#### Boxmap function
 
 The code chunk below is an R function to create a box map. - arguments: - vnam: variable name (as character, in quotes) - df: simple features polygon layer - legtitle: legend title - mtitle: map title - mult: multiplier for IQR - returns: - a tmap-element (plots a map)
 
