@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise 7C: Analytical Mapping"
+title: "Hands-on Exercise 8C: Analytical Mapping"
 author: "Cai Jingheng"
 date: "Feb,24,2024"
 date-modified: "last-modified"

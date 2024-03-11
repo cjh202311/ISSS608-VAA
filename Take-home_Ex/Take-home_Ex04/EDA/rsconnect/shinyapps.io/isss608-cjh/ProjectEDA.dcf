@@ -5,7 +5,7 @@ account: isss608-cjh
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 11425813
-bundleId: 8343346
+bundleId: 8354527
 url: https://isss608-cjh.shinyapps.io/ProjectEDA/
 version: 1
 asMultiple: FALSE

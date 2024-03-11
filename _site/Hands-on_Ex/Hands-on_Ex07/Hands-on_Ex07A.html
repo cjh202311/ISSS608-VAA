@@ -9,7 +9,7 @@
 <meta name="author" content="Cai Jingheng">
 <meta name="dcterms.date" content="2024-02-24">
 
-<title>ISSS608-VAA - Hands-on Exercise 7A: Choropleth Mapping with R</title>
+<title>ISSS608-VAA - Hands-on Exercise 8A: Choropleth Mapping with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -182,15 +182,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07A.html" rel="" target="">
- <span class="dropdown-text">Hands-on Exercise 7A</span></a>
+ <span class="dropdown-text">Hands-on Exercise 8A</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07B.html" rel="" target="">
- <span class="dropdown-text">Hands-on Exercise 7B</span></a>
+ <span class="dropdown-text">Hands-on Exercise 8B</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07C.html" rel="" target="">
- <span class="dropdown-text">Hands-on Exercise 7C</span></a>
+ <span class="dropdown-text">Hands-on Exercise 8C</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 9</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 10</span></a>
   </li>  
     </ul>
   </li>
@@ -206,8 +214,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">In-class Exercise 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex01/In-class_Ex6.html" rel="" target="">
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex06/In-class_Ex6.html" rel="" target="">
  <span class="dropdown-text">In-class Exercise 6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex07/In-class_Ex7.html" rel="" target="">
+ <span class="dropdown-text">In-class Exercise 7</span></a>
   </li>  
     </ul>
   </li>
@@ -229,6 +241,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../../Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html" rel="" target="">
  <span class="dropdown-text">Take-home Exercise 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Take-home_Ex/Take-home_Ex04/Take-home_Ex04.html" rel="" target="">
+ <span class="dropdown-text">Take-home Exercise 4</span></a>
   </li>  
     </ul>
   </li>
@@ -320,7 +336,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Hands-on Exercise 7A: Choropleth Mapping with R</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Hands-on Exercise 8A: Choropleth Mapping with R</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -344,7 +360,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">February 24, 2024</p>
+      <p class="date-modified">March 11, 2024</p>
     </div>
   </div>
     
@@ -1342,7 +1358,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb37" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Hands-on Exercise 7A: Choropleth Mapping with R"</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Hands-on Exercise 8A: Choropleth Mapping with R"</span></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Cai Jingheng"</span></span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "Feb,24,2024"</span></span>
 <span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="an">date-modified:</span><span class="co"> "last-modified"</span></span>

@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise 7B: Visualising Geospatial Point Data"
+title: "Hands-on Exercise 8B: Visualising Geospatial Point Data"
 author: "Cai Jingheng"
 date: "Feb,24,2024"
 date-modified: "last-modified"

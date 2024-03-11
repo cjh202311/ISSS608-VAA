@@ -1,15 +1,34 @@
 ---
-title: "Data Prep"
+title: "Take Home Exercise 4: Prototyping Modules for Visual Analytics Shiny Application"
+author: "Cai Jingheng"
+date: "Mar,1,2024"
+date-modified: "last-modified"
+toc: true
+number-sections: true
+format: 
+  html: 
+    code-tools: true
+    warning: false
 ---
 
-## 
+## **Objectives**
 
-```{r}
-#| eval: false
-pacman::p_load(tidyverse)
-```
+In this take-home exercise, we are required to select one of the modules of our proposed Shiny application and complete the following tasks:
+
+-   To evaluate and determine the necessary R packages needed for our Shiny application are supported in R CRAN,
+
+-   To prepare and test the specific R codes to ensure they can be run and return the correct output as expected,
+
+-   To determine the parameters and outputs that will be exposed on the Shiny applications, and
+
+-   To select the appropriate Shiny UI components for exposing the parameters determined above.
 
 ## Data Preparation
+
+```{r}
+#| code-fold: true
+pacman::p_load(tidyverse)
+```
 
 ::: panel-tabset
 ## Load Files
@@ -244,11 +263,308 @@ write.csv(data_by_quarter, "data/data_by_quarter.csv", row.names = FALSE)
 ## Load Dataset
 
 ```{r}
-#| eval: false
-dm <- read_csv('data/data_by_month.csv')
-dq <- read_csv('data/data_by_quarter.csv')
+
+month_data <- read_csv('data/data_by_month.csv')
+quarter_data <- read_csv('data/data_by_quarter.csv')
 ```
 :::
 
-```{}
+First we check the variables of both tables:
+
+```{r}
+#| code-fold: true
+summary(month_data)
+summary(quarter_data)
 ```
+
+We can see that there is no corresponding data for PPI in month_data, and secondly, there are a lot of variables. In order to make it easier for the user to choose, I have used the following code to divide the variables into four categories: PPI, Materials, Index and Financial. Providing a clear path of choices is essential for managing complex datasets, especially when dealing with multiple sources or categories. This approach reduces information overload, enabling users to perform focused analyses quickly.
+
+```{r}
+
+categories_quarter <- list(
+  PPI = c("PR_All", "PR_Landed", "PR_NL_ALL", "PR_NL_CCR", "PR_NL_RCR", "PR_NL_OCR"),
+  Materials = c("Cement", "SteelBar", "Granite", "ConcretingSand", "ReadyMixConcrete"),
+  Index = c("Index"),
+  Financial =  c("Bill1Yr", "Bond2Yr", "Bond5Yr", "Bond10Yr", "Rate")
+)
+
+categories_month <- list(
+  Materials = c("Cement", "SteelBar", "Granite", "ConcretingSand", "ReadyMixConcrete"),
+  Index = c("Index"),
+  Financial =  c("Bill1Yr", "Bond2Yr", "Bond5Yr", "Bond10Yr", "Rate")
+)
+```
+
+In addition, both datasets count the variable change, so we deal with the data variable of change.
+
+```{r}
+categories_changes_quarter <- lapply(names(categories_quarter), function(category) {
+  if (category != "Financial") {
+    paste0("%Change_", categories_quarter[[category]])
+  } else {
+    paste0("Change_", categories_quarter[[category]])
+  }
+})
+
+categories_changes_month <- lapply(names(categories_month), function(category) {
+  if (category != "Financial") {
+    paste0("%Change_", categories_month[[category]])
+  } else {
+    paste0("Change_", categories_month[[category]])
+  }
+})
+
+categories_changes_quarter <- setNames(categories_changes_quarter, names(categories_quarter))
+categories_changes_month <- setNames(categories_changes_month, names(categories_month))
+
+```
+
+These code snippets take two lists categorized by quarters and months, respectively, iterate over each category within these lists, and create new lists where the variables are renamed to indicate changes (either percentage or absolute changes).
+
+Next,Pre-processing of quarterly and monthly data.
+
+```{r}
+quarter_data$Year <- as.numeric(substr(quarter_data$QuarterLabel, 3, 6))
+quarter_data$Quarter <- substr(quarter_data$QuarterLabel, 1, 2)
+month_data$Year <- lubridate::year(month_data$Date)
+month_data$Month <- lubridate::month(month_data$Date)
+```
+
+## Design for EDA
+
+In this exercise, I will be responsible for the EDA part of our group project shinyapp, here is my [Shinyapp Prototype](https://isss608-cjh.shinyapps.io/ProjectEDA/). \--https://isss608-cjh.shinyapps.io/ProjectEDA/
+
+### Overview
+
+![](images/2efc099809aabed84023ab172898874.png)
+
+This UI is designed for a Shiny app, structured using **`dashboardPage`** from the **`shinydashboard`** package, aiming to provide a user-friendly interface for Exploratory Data Analysis (EDA).
+
+The sidebar is organized into main analysis types - Trend, Distribution, Autocorrelation, and Crosscorrelation - to guide the user through the different facets of EDA. Users can click on these to switch between different analyses.
+
+### Trend
+
+#### **Test Code**
+
+We test the Trend Line Plot in "Index" variable using `plotly` package
+
+```{r}
+library(plotly)
+    p <- ggplot(month_data, aes(x = Date, y = .data[["Index"]])) +
+      geom_line(size = 1.2, color = "#3366CC") + 
+      labs(title = paste("Trend of", y = "Index", "over Time"), x = "Date", y = "Index", 
+           title.size = 18, title.color = "#333333") + 
+      theme_minimal() +
+      theme(
+        plot.title = element_text(family = "Arial"), 
+        axis.title = element_text(family = "Arial", size = 14), 
+        axis.text = element_text(family = "Arial", size = 12), 
+        panel.grid.major = element_line(color = "#D3D3D3", linewidth = 0.5), # 
+        panel.grid.minor = element_blank(), 
+        panel.background = element_rect(fill = "#F8F8F8") 
+      )
+    
+    ggplotly(p)
+```
+
+#### Ui Design
+
+![](images/e8a04a001a900c202d66b6eaadc15ba.png){fig-align="center"}
+
+**Filter Panel:**
+
+Within the "Trend" analysis tab, the sidebar serves as a filter panel where users can customize the data they wish to analyze by:
+
+-   **View by:** Allows selection between 'Quarter' and 'Month', catering to datasets with different temporal resolutions. (When selecting Month, PPI cannot be selected due to missing data)
+
+-   **Choose a category:** Enables the selection of a data category ('PPI', 'Materials', 'Index', 'Financial'), which represents different variable categories.
+
+-   **Choose a variable:** Offers a dropdown to select specific variables within the chosen category.
+
+-   **Data Type:** Users can switch between 'Original' data or 'Change' data. The "Change" data typically represents derived statistics such as growth rates or absolute changes, providing insights into how the selected variables evolve over time. This feature enriches the analysis by offering a comparative view of the raw data against its rate of change, catering to different analytical needs and preferences.
+
+-   **Time Selection:** Slider inputs for 'Start Year' and 'End Year' facilitate the specification of a time range for the analysis. Dropdowns for 'Start Quarter' and 'End Quarter' or 'Start Month' and 'End Month' provide more granular control over the selected time period.
+
+**Interactive Line Plot:**
+
+The plot itself is designed for interactivity (using **`plotly`**), providing tooltips on hover for detailed insights into specific data points. The use of a line plot is ideal for visualizing time series data and observing trends over a selected period.
+
+### Distribution
+
+#### **Test Code**
+
+We test Distribution Histogram in "Index" variable using `ggplot2` and `plotly` package.
+
+```{r}
+
+library(ggplot2)
+library(plotly)
+
+# Specify the number of bins for the histogram
+bins_count <- 15
+
+# Create a histogram for the 'Index' column and add vertical lines for mean and median
+plot <- ggplot(month_data, aes(x = Index)) +
+  geom_histogram(bins = bins_count, fill = "#6D9EC1", color = "white") +
+  geom_vline(aes(xintercept = mean(Index, na.rm = TRUE)), color = "#E46726", linetype = "dashed") +
+  geom_vline(aes(xintercept = median(Index, na.rm = TRUE)), color = "gold", linetype = "dashed") +
+  labs(title = "Distribution of Index", x = "Index", y = "Frequency") +
+  theme_minimal()
+
+# Convert the ggplot object to an interactive Plotly object
+p <- ggplotly(plot)
+
+# Add annotations for mean and median to the plot
+p <- p %>% layout(annotations = list(
+  list(
+    text = "Mean",  # Text label for the mean
+    x = mean(month_data$Index, na.rm = TRUE),  # Position of the mean on x-axis
+    y = 0.85,  # Position of the text on the plot (relative to the plot area)
+    xref = "x",
+    yref = "paper",
+    showarrow = FALSE,  # Do not show an arrow
+    font = list(color = "#E46726", size = 10)  # Font settings
+  ),
+  list(
+    text = "Median",  # Text label for the median
+    x = median(month_data$Index, na.rm = TRUE),  # Position of the median on x-axis
+    y = 0.70,  # Position of the text on the plot (relative to the plot area)
+    xref = "x",
+    yref = "paper",
+    showarrow = FALSE,  # Do not show an arrow
+    font = list(color = "gold", size = 10)  # Font settings
+  )
+))
+
+# Display the interactive plot
+p
+
+```
+
+#### Ui Design
+
+![](images/41a439b8d318d7c913208ecdb1f3955.png){fig-align="center"}
+
+**Filter Panel:**
+
+-   **Category and Variable Selection:** Users begin by selecting a varialbe category from the 'Choose a category' dropdown, followed by choosing a variable, within that category from the 'Choose a variable' dropdown. This enables users to focus their analysis on specific variable, making the data analysis more targeted and specific.
+
+-   **Year Range Selection:** Users employ a slider input to select a specific range of years. The start and end years can be set by adjusting the slider, allowing users to concentrate on data from a specific period.
+
+-   **Adjusting Number of Bins:** A slider is provided to adjust the number of bins in the histogram, allowing users to view a rough or detailed distribution of data as needed. The number of bins in a histogram directly affects how users perceive data distribution. Being able to adjust the number of bins enables users to tailor the view to different characteristics of the data and analysis needs, thus gaining deeper insights.
+
+**Interactive Histogram:**
+
+A histogram is generated based on the user-selected category and variable. If the 'PPI' category is selected, the **`quarter_data`** is used; otherwise, **`month_data`** is used, supplemented with dashed lines indicating mean and median values. Visual markers for mean and median provide users with an intuitive sense of the dataset's central tendencies, helping to identify the shape of the distribution and where data points are concentrated.
+
+### **Autocorrelation**
+
+#### **Test Code**
+
+We test the Autocorrelation Plot in "Index" variable using `ggplot2` , `dplyr` and `viridis` (for color) package.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(viridis)
+
+
+# Choose colors
+viridis_colors <- viridis::viridis_pal()(5)
+
+# Plot
+p <- ggplot(quarter_data, aes(x = factor(Year), y = Index)) +
+  geom_boxplot(fill = "darkblue") +
+  stat_summary(fun.y = mean, geom = "line", aes(group = 1), color = "gold") +
+  labs(title = "Boxplot and Mean of PR_All over Time", x = "Year", y = "Index") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 18, color = "#333333"),
+    axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1, size = 12),
+    axis.text.y = element_text(size = 12)
+  )
+
+ ggplotly(p)
+
+```
+
+#### Ui Design
+
+::: panel-tabset
+## By year
+
+![](images/dbfff05b2586c38554dedc7c98c3bf4.png)
+
+## By month
+
+![](images/540fc4170bbb9fe0f651f595dd74e32.png)
+
+## By quarter
+
+![](images/6483ab4104b3fd6ae158561ef9cd60d.png)
+:::
+
+**Filter Panel:**
+
+-   **Variable Selection:** The choice of variables is similar to Trend. Users can select between "Original" and "Change" data types, variables are also selected based on the chosen category.
+
+-   **View Mode:** Time-based data visualization requires an axis that accurately reflects the time increments of the data. This flexibility ensures that users can quickly interpret the timescale of the autocorrelation without confusion (by Year, Quarter, or Month)
+
+**Interactive Boxplot with Mean Over Time**
+
+Generating a boxplot with an overlaying mean line, providing a visual summary of the distribution of values within each time period as well as the central tendency over time. The combination of a boxplot with a mean line is a powerful way to visualize variability and central tendency in data simultaneously. The x-axis is dynamic and changes based on whether the view mode is set to Year, Quarter, or Month.
+
+### Correlation
+
+#### **Test Code**
+
+We test the Autocorrelation Plot in "Index" variable using `ggcorrplot` and `ggplot2` package.
+
+```{r, fig.width=8, fig.height=8}
+
+library(ggcorrplot)
+library(ggplot2)
+
+variables <- c(
+  "PR_All", "PR_Landed", "PR_NL_ALL", "PR_NL_CCR", "PR_NL_RCR", "PR_NL_OCR",
+  "Cement", "SteelBar", "Granite", "ConcretingSand", "ReadyMixConcrete",
+  "Index",
+  "Bill1Yr", "Bond2Yr", "Bond5Yr", "Bond10Yr", "Rate"
+)
+
+# Subsetting the 'quarter_data' to include only the selected variables
+selected_data <- quarter_data[variables]
+
+# Calculate the correlation matrix
+corr_matrix <- cor(selected_data, use = "pairwise.complete.obs")
+
+# Create the correlation plot using 'ggcorrplot'
+library(ggcorrplot)
+p <- ggcorrplot(corr_matrix, hc.order = TRUE, type = "lower", outline.col = "white",
+                lab = TRUE, lab_size = 3.5,
+                colors = c("#6D9EC1", "white", "#E46726"), 
+                ggtheme = theme_minimal()) +
+      theme(axis.text.x = element_text(angle = 45, vjust = 1, size = 12, hjust = 1),
+            axis.text.y = element_text(size = 12))
+
+# Print the plot
+print(p)
+```
+
+#### Ui Design
+
+**Filter Panel:**
+
+![](images/3130b87a956db52080a98f538fbb796.png){fig-align="center"}
+
+-   **Variable Selection:** A structured selection interface is provided with checkboxes grouped by categories such as "PPI," "Materials," "Index," and "Financial." By default, all variables within each category are pre-selected. Users can select variables within these categories to include in the cross-correlation analysis. Grouping variables by category helps users navigate through a potentially large number of variables and allows for a more organized selection process. It also facilitates comparisons within and across different categories of data, which is essential for cross-correlation analysis.
+
+-   **Select All/Deselect All:** Select All" and "Deselect All" buttons are included to provide a quick way to select or clear all checkboxes within each category. This functionality enhances the user experience by providing convenience and saving time, especially when dealing with large datasets where users might want to start with a broad analysis and then refine their selection.
+
+**Correlation Matrix Visualization:**
+
+The aesthetics of the correlation matrix are enhanced with a color palette ranging from blue (negative correlation) to white (no correlation) to orange (positive correlation). The size of the plot is explicitly controlled to ensure it is appropriately displayed within the dashboard layout. Color coding makes it easier to distinguish between different levels of correlation at a glance. Controlling the size of the output plot ensures that the visualization remains clear and accessible, even on different devices or screen sizes.
+
+## Future Work
+
+Following the completion of our ShinyApp model's design phase, our next steps involve refining and integrating the model within the broader context of our group project. While the current iteration of the model meets the initial design and functionality requirements, continuous improvement and integration efforts are essential to enhance its utility, user experience, and analytical capabilities.

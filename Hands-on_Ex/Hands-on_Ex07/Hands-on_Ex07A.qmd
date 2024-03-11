@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise 7A: Choropleth Mapping with R"
+title: "Hands-on Exercise 8A: Choropleth Mapping with R"
 author: "Cai Jingheng"
 date: "Feb,24,2024"
 date-modified: "last-modified"
@@ -496,4 +496,3 @@ tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="CENTRAL REGION", ])+
 -   [Tidy data](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)
 
 -   [tidyr: Easily Tidy Data with 'spread()' and 'gather()' Functions](https://cran.r-project.org/web/packages/tidyr/tidyr.pdf)
-
