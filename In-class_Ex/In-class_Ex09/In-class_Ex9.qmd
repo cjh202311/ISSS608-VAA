@@ -1,0 +1,71 @@
+---
+title: "In-class Exercise 9: Modelling, Visualising and Analysing Network Data with R"
+---
+
+```{r}
+pacman::p_load(igraph, tidygraph, ggraph, 
+               visNetwork, lubridate, clock,
+               tidyverse, graphlayouts)
+```
+
+```{r}
+GAStech_nodes <- read_csv("data/GAStech_email_node.csv")
+GAStech_edges <- read_csv("data/GAStech_email_edge-v2.csv")
+```
+
+```{r}
+GAStech_edges <- GAStech_edges%>%
+  mutate(SendDate = dmy(SentDate))%>%
+  mutate(Weekday = wday(SentDate,
+                        label = TRUE,
+                        abbr = FALSE))
+```
+
+```{r}
+GAStech_edges_aggregated <- GAStech_edges%>%
+  filter(MainSubject == "Work related")%>%
+  group_by(source, target, Weekday) %>%
+  summarise(Weight =n())%>%
+  filter(source!=target)%>%
+  filter(Weight >1)%>%
+  ungroup()
+```
+
+```{r}
+GAstech_graph <- tbl_graph(nodes =GAStech_nodes,
+                           edges = GAStech_edges_aggregated,
+                           directed = TRUE)
+```
+
+```{r}
+g<-ggraph(GAstech_graph)+
+  geom_edge_link(aes(colour ='grey50'))+
+                     
+  geom_node_point(aes(colour ="grey40" ))
+g + theme_graph(background = 'grey10',
+                  text_colour ='white')
+```
+
+```{r}
+g<-ggraph(GAstech_graph,layout ="fr")+
+geom_edge_link(aes())+geom_node_point(aes())
+g+theme_graph()
+```
+
+```{r}
+g<- ggraph(GAstech_graph,layout ="nicely")+geom_edge_link(aes())+geom_node_point(aes(colour = Department,size =3))
+g + theme_graph()
+```
+
+```{r}
+g<- ggraph(GAstech_graph,layout ="nicely")+
+  geom_edge_link(aes(width=Weight),alpha=0.2)+scale_edge_width(range =c(0.1,5))+geom_node_point(aes(colour = Department),size=3)
+g + theme_graph()
+```
+
+```{r}
+set_graph_style()
+g<- ggraph(GAstech_graph,layout ="nicely")+geom_edge_link(aes(width=Weight),
+alpha=0.2)+scale_edge_width(range =c(0.1,5))+geom_node_point(aes(colour = Department),size = 2)
+g + facet_edges(~Weekday)
+```
