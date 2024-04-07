@@ -23,7 +23,7 @@ isohyet map is a surface map of the same precipitation: rain, snow, and others. 
 
 In order to prepare an isohyet map, spatial interpolation will be used. Spatial interpolation is the process of using points with known values to estimate values at other unknown points. For example, to make a rainfall above, we will not find enough evenly spread weather stations to cover the entire region. Spatial interpolation can estimate the rainfall at locations without recorded data by using known rainfall readings at nearby weather stations (see figure_temperature_map). This type of interpolated surface is often called a geostatistical surface. Elevation data, temperature, property prices, air quality index and population density are other types of data that can be computed using interpolation.![](https://isss608-vaa-demo.netlify.app/in-class_ex/in-class_ex07/image/image2.png)
 
-There are many interpolation methods. In this hands-on exercise, two widely used spatial interpolation methods called Inverse Distance Weighting (IDW) and kriging will be introduce. If you are looking for additional interpolation methods, please refer to the \'Further Reading\' section at the end of this topic.
+There are many interpolation methods. In this hands-on exercise, two widely used spatial interpolation methods called Inverse Distance Weighting (IDW) and kriging will be introduce. If you are looking for additional interpolation methods, please refer to the 'Further Reading' section at the end of this topic.
 
 ## **Getting Started**
 
@@ -72,7 +72,6 @@ rfdata <- read_csv("data/aspatial/DAILYDATA_202402.csv") %>%
 ```
 
 ::: callout-note
-
 -   `select()` of **dplyr** package is used to retain column 1 and 5 of the input data.
 
 -   `group_by()` and `summarise()` of **dplyr** package are used to compute the total monthly rainfall from *Daily Rainfall Total (mm)* field. The output is stored in a new field called *MONTHSUM*.
@@ -102,7 +101,6 @@ rfdata_sf <- st_as_sf(rfdata,
 ```
 
 ::: callout-note
-
 -   For `coords` argument, it is important to map the X (i.e. Longitude) first, then follow by the Y (i.e. Latitude).
 
 -   `crs = 4326` indicates that the source data is in wgs84 coordinates system.
@@ -161,7 +159,7 @@ In this section, you will gain hands-on experience on performing spatial interpo
 
 -   The calibration data
 
-Based on its arguments, the gstat function \"understands\" what type of interpolation model we want to use:
+Based on its arguments, the gstat function "understands" what type of interpolation model we want to use:
 
 -   No variogram model → IDW
 
@@ -217,7 +215,7 @@ It is important to notice that the IDW interpolation method also has some disadv
 
 We are going to use three parameters of the gstat function:
 
--   formula: The prediction \"formula\" specifying the dependent and the independent variables (covariates)
+-   formula: The prediction "formula" specifying the dependent and the independent variables (covariates)
 
 -   data: The calibration data
 
@@ -290,7 +288,7 @@ Kriging is one of several methods that use a limited set of sampled data points 
 
 In a general sense, the kriging weights are calculated such that points nearby to the location of interest are given more weight than those farther away. Clustering of points is also taken into account, so that clusters of points are weighted less heavily (in effect, they contain less information than single points). This helps to reduce bias in the predictions.
 
-The kriging predictor is an \"optimal linear predictor\" and an exact interpolator, meaning that each interpolated value is calculated to minimize the prediction error for that point. The value that is generated from the kriging process for any actually sampled location will be equal to the observed value at this point, and all the interpolated values will be the Best Linear Unbiased Predictors (BLUPs).
+The kriging predictor is an "optimal linear predictor" and an exact interpolator, meaning that each interpolated value is calculated to minimize the prediction error for that point. The value that is generated from the kriging process for any actually sampled location will be equal to the observed value at this point, and all the interpolated values will be the Best Linear Unbiased Predictors (BLUPs).
 
 Kriging will in general not be more effective than simpler methods of interpolation if there is little spatial autocorrelation among the sampled data points (that is, if the values do not co-vary in space). If there is at least moderate spatial autocorrelation, however, kriging can be a helpful method to preserve spatial variability that would be lost using a simpler method (for an example, see Auchincloss 2007, below).
 
@@ -300,7 +298,7 @@ Kriging can be understood as a two-step process:
 
 -   second, weights derived from this covariance structure are used to interpolate values for unsampled points or blocks across the spatial field.
 
-Kriging methods require a **variogram** model. A variogram (sometimes called a \"**semivariogram**\") is a visual depiction of the covariance exhibited between each pair of points in the sampled data. For each pair of points in the sampled data, the gamma-value or \"semi-variance\" (a measure of the half mean-squared difference between their values) is plotted against the distance, or \"lag\", between them. The \"experimental\" variogram is the plot of observed values, while the \"theoretical\" or \"model\" variogram is the distributional model that best fits the data.
+Kriging methods require a **variogram** model. A variogram (sometimes called a "**semivariogram**") is a visual depiction of the covariance exhibited between each pair of points in the sampled data. For each pair of points in the sampled data, the gamma-value or "semi-variance" (a measure of the half mean-squared difference between their values) is plotted against the distance, or "lag", between them. The "experimental" variogram is the plot of observed values, while the "theoretical" or "model" variogram is the distributional model that best fits the data.
 
 ![](https://isss608-vaa-demo.netlify.app/in-class_ex/in-class_ex07/image/image5.png)
 
@@ -462,4 +460,4 @@ tm_shape(kpred) +
 
 ## **Reference**
 
-Olea, Ricardo A. (2006-07) \"A six-step practical approach to semivariogram modeling\", *Stochastic Environmental Research and Risk Assessment*, 2006-07, Vol.20 (5), p.307-318. SMU e-journal.
+Olea, Ricardo A. (2006-07) "A six-step practical approach to semivariogram modeling", *Stochastic Environmental Research and Risk Assessment*, 2006-07, Vol.20 (5), p.307-318. SMU e-journal.
