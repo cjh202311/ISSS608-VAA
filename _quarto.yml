@@ -75,6 +75,8 @@ website:
         text: Project
         menu: 
           - text: "Group Project"
+          - href: https://g1grp8-housingindexnowcast.netlify.app/
+            
     right:
       - icon: house-door-fill
         href: index.qmd
