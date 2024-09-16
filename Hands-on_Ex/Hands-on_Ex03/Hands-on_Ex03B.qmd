@@ -164,7 +164,7 @@ In this sub-section, you will learn how to create an animated bubble plot by usi
 ## The plot
 
 ```{r}
-#| echo: false
+#| eval: false
 gg <- ggplot(globalPop, 
        aes(x = Old, 
            y = Young, 

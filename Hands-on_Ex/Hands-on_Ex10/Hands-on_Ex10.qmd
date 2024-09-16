@@ -216,7 +216,7 @@ report %>%
             .groups = "drop")
 ```
 
-###  **Plotting Coffechain Sales report**
+### **Plotting Coffechain Sales report**
 
 ```{r}
 report %>%
@@ -268,7 +268,7 @@ sales <- report %>%
 sales_data = left_join(sales, spark)
 ```
 
-###  **Plotting the updated data.table**
+### **Plotting the updated data.table**
 
 ```{r}
 sales_data %>%

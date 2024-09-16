@@ -101,6 +101,7 @@ ggtern(data=agpop_mutated,aes(x=YOUNG,y=ACTIVE, z=OLD)) +
 ```
 
 ```{r}
+
 #Building the static ternary plot
 ggtern(data=agpop_mutated, aes(x=YOUNG,y=ACTIVE, z=OLD)) +
   geom_point(color = "#3459e6") +
@@ -113,6 +114,7 @@ ggtern(data=agpop_mutated, aes(x=YOUNG,y=ACTIVE, z=OLD)) +
 The code below create an interactive ternary plot using ***plot_ly()*** function of **Plotly R**.
 
 ```{r}
+library(plotly)
 # reusable function for creating annotation object
 label <- function(txt) {
   list(

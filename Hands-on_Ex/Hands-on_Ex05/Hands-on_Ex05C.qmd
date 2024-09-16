@@ -29,7 +29,7 @@ Before you get started, you are required:
 Next, you will use the code chunk below to install and launch **seriation**, **heatmaply**, **dendextend** and **tidyverse** in RStudio.
 
 ```{r}
-pacman::p_load(seriation, dendextend, heatmaply, tidyverse)
+pacman::p_load(seriation, dendextend, heatmaply, tidyverse,viridis,plotly)
 ```
 
 ## **Importing and Preparing The Data Set**
@@ -130,13 +130,16 @@ In this section, you will gain hands-on experience on using **heatmaply** to des
 
 ### **Working with heatmaply**
 
-```{r  fig.height=6}
-heatmaply(mtcars)
+```{r, eval = FALSE}
+
+heatmaply::heatmaply(mtcars)
+
+
 ```
 
 The code chunk below shows the basic syntax needed to create n interactive heatmap by using **heatmaply** package.
 
-```{r}
+```{r, eval = FALSE}
 heatmaply(wh_matrix[, -c(1, 2, 4, 5)])
 ```
 
@@ -164,7 +167,7 @@ Three main data transformation methods are supported by *heatmaply()*, namely: s
 
 The code chunk below is used to scale variable values columewise.
 
-```{r}
+```{r, eval = FALSE}
 heatmaply(wh_matrix[, -c(1, 2, 4, 5)],
           scale = "column")
 ```
@@ -177,7 +180,7 @@ heatmaply(wh_matrix[, -c(1, 2, 4, 5)],
 
 Different from Scaling, the normalise method is performed on the input data set i.e. wh_matrix as shown in the code chunk below.
 
-```{r}
+```{r, eval = FALSE}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]))
 ```
 
@@ -191,7 +194,7 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]))
 
 Similar to Normalize method, the Percentize method is also performed on the input data set i.e. wh_matrix as shown in the code chunk below.
 
-```{r}
+```{r, eval = FALSE}
 heatmaply(percentize(wh_matrix[, -c(1, 2, 4, 5)]))
 ```
 
@@ -213,7 +216,7 @@ In general, a clustering model can be calibrated either manually or statisticall
 
 In the code chunk below, the heatmap is plotted by using hierachical clustering algorithm with "Euclidean distance" and "ward.D" method.
 
-```{r}
+```{r, eval = FALSE}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           dist_method = "euclidean",
           hclust_method = "ward.D")
@@ -225,7 +228,7 @@ In order to determine the best clustering method and number of cluster the *dend
 
 First, the *dend_expend()* will be used to determine the recommended clustering method to be used.
 
-```{r}
+```{r, eval = FALSE}
 wh_d <- dist(normalize(wh_matrix[, -c(1, 2, 4, 5)]), method = "euclidean")
 dend_expend(wh_d)[[3]]
 ```
@@ -234,7 +237,7 @@ The output table shows that "average" method should be used because it gave the 
 
 Next, *find_k()* is used to determine the optimal number of cluster.
 
-```{r}
+```{r, eval = FALSE}
 wh_clust <- hclust(wh_d, method = "average")
 num_k <- find_k(wh_clust)
 plot(num_k)
@@ -244,7 +247,7 @@ Figure above shows that k=3 would be good.
 
 With reference to the statistical analysis results, we can prepare the code chunk as shown below.
 
-```{r}
+```{r, eval = FALSE}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           dist_method = "euclidean",
           hclust_method = "average",
@@ -259,28 +262,28 @@ One of the problems with hierarchical clustering is that it doesn't actually pla
 
 Here we meet our first seriation algorithm: Optimal Leaf Ordering (OLO). This algorithm starts with the output of an agglomerative clustering algorithm and produces a unique ordering, one that flips the various branches of the dendrogram around so as to minimize the sum of dissimilarities between adjacent leaves. Here is the result of applying Optimal Leaf Ordering to the same clustering result as the heatmap above.
 
-```{r}
+```{r, eval = FALSE}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           seriate = "OLO")
 ```
 
 The default options is "OLO" (Optimal leaf ordering) which optimizes the above criterion (in O(n\^4)). Another option is "GW" (Gruvaeus and Wainer) which aims for the same goal but uses a potentially faster heuristic.
 
-```{r}
+```{r, eval = FALSE}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           seriate = "GW")
 ```
 
 The option "mean" gives the output we would get by default from heatmap functions in other packages such as gplots::heatmap.2.
 
-```{r}
+```{r, eval = FALSE}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           seriate = "mean")
 ```
 
 The option "none" gives us the dendrograms without any rotation that is based on the data matrix.
 
-```{r}
+```{r, eval = FALSE}
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           seriate = "none")
 ```
@@ -291,7 +294,7 @@ The default colour palette uses by **heatmaply** is *viridis*. heatmaply users, 
 
 In the code chunk below, the Blues colour palette of rColorBrewer is used
 
-```{r}
+```{r, eval = FALSE}
 custom_palette <- colorRampPalette(c("white", "#3459e6"))
 
 # Assuming wh_matrix is your data frame
@@ -321,7 +324,7 @@ In the code chunk below the following arguments are used:
 
 -   *xlab* and *ylab* are used to write the x-axis and y-axis labels respectively.
 
-```{r   fig.height=12}
+```{r, eval = FALSE}
 custom_palette <- colorRampPalette(c("white", "#3459e6"))
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           Colv=NA,

@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "ISSS608-VAA"
+  title: "Visual Analytics"
   navbar:
     left: 
       - icon: pencil-square
@@ -75,7 +75,12 @@ website:
         text: Project
         menu: 
           - text: "Group Project"
-          - href: https://g1grp8-housingindexnowcast.netlify.app/
+            href: https://g1grp8-housingindexnowcast.netlify.app/
+      - icon: bar-chart-fill
+        text: Tableau
+        href: https://public.tableau.com/app/profile/jingheng.cai/vizzes
+           
+            
             
     right:
       - icon: house-door-fill
@@ -84,9 +89,7 @@ website:
       - icon: github
         href: https://github.com/cjh202311
         aria-label: Github
-      - icon: bar-chart-fill
-        href: https://public.tableau.com/
-        aria-label: Tableau
+      
       - icon: envelope-fill
         href: mailto:jh.cai.2023@mitb.smu.edu.sg
         
