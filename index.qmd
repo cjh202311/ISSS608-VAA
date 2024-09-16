@@ -27,7 +27,7 @@ listing:
 toc: false
 ---
 
-In this website, you will find my coursework prepared for this course.
+This website showcases the projects I have completed, demonstrating my skills and expertise in Visual Analytics.
 
 ![](va.png){fig-align="center" width="2311"}
 
